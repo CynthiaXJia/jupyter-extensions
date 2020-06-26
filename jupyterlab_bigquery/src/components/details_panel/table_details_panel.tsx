@@ -91,7 +91,7 @@ export default class TableDetailsPanel extends React.Component<Props, State> {
       return (
         <div>
           <DetailsPanel
-            details={this.state.details}
+            details={this.state.details.details}
             rows={this.state.rows}
             type="table"
           />
