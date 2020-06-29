@@ -9,9 +9,9 @@ const localStyles = stylesheet({
   panel: {
     backgroundColor: 'white',
     height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'stretch',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignContent: 'stretch',
   },
 });
 
