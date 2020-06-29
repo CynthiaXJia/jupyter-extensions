@@ -106,7 +106,11 @@ export const DetailsPanel: React.SFC<Props> = props => {
             <Grid item xs={12}>
               <div className={localStyles.title}>Schema</div>
               {details.schema ? (
-                <Table size="small">
+                <Table
+                  size="small"
+                  //   fixedHeader={false}
+                  style={{ width: 'auto', tableLayout: 'auto' }}
+                >
                   <TableHead>
                     <TableRow>
                       <TableCell className={localStyles.tableHead}>

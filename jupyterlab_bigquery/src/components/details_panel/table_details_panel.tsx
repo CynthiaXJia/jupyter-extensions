@@ -25,6 +25,17 @@ interface DetailRow {
   value: string | number;
 }
 
+function formatBytes(numBytes, numDecimals = 2) {
+  if (numBytes === 0) return '0 Bytes';
+  //   const c = 0 > numDecimals ? 0 : numDecimals;
+  const d = Math.floor(Math.log(numBytes) / Math.log(1024));
+  return (
+    parseFloat((numBytes / Math.pow(1024, d)).toFixed(numDecimals)) +
+    ' ' +
+    ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][d]
+  );
+}
+
 export default class TableDetailsPanel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -62,8 +73,8 @@ export default class TableDetailsPanel extends React.Component<Props, State> {
       const detailsObj = details.details;
       const rows = [
         { name: 'Table ID', value: detailsObj.id },
-        { name: 'Table size', value: `${detailsObj.num_bytes} Bytes` },
-        { name: 'Number of rows', value: detailsObj.num_rows },
+        { name: 'Table size', value: formatBytes(detailsObj.num_bytes) },
+        { name: 'Number of rows', value: detailsObj.num_rows.toLocaleString() },
         { name: 'Created', value: detailsObj.date_created },
         {
           name: 'Table expiration',
