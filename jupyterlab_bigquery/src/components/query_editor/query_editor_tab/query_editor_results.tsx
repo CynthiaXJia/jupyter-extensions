@@ -43,6 +43,7 @@ const localStyles = stylesheet({
     // overflowX: 'auto',
     overflow: 'auto',
     height: '-webkit-calc(50% - 50px)',
+    width: '100%',
   },
 });
 
@@ -167,7 +168,7 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, rowIndex) => (
                 <TableRow key={'big_query_query_result_row' + rowIndex}>
-                  <TableCell>{rowIndex + 1}</TableCell>
+                  <TableCell>{page * rowsPerPage + rowIndex + 1}</TableCell>
                   {row.map((cell, cellIndex) => (
                     <TableCell
                       className={localStyles.tableCell}

@@ -79,9 +79,7 @@ class QueryTextEditor extends React.Component<
           height="40vh"
           theme={'light'}
           language={'sql'}
-          value={
-            'SELECT * FROM `jupyterlab-interns-sandbox.covid19_public_forecasts.county_14d` LIMIT 10'
-          }
+          value={'SELECT * FROM `` LIMIT 10'}
           editorDidMount={this.handleEditorDidMount.bind(this)}
           options={SQL_EDITOR_OPTIONS}
         />
