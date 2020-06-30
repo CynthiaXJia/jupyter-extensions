@@ -20,6 +20,15 @@ interface QueryTextEditorProps {
 const SQL_EDITOR_OPTIONS: editor.IEditorConstructionOptions = {
   lineNumbers: 'on',
   automaticLayout: true,
+  formatOnType: true,
+  formatOnPaste: true,
+  wordWrapColumn: 80,
+  wordWrap: 'bounded',
+  wrappingIndent: 'same',
+  wrappingStrategy: 'advanced',
+  minimap: {
+    enabled: false,
+  },
 };
 
 const styleSheet = stylesheet({
@@ -69,7 +78,6 @@ class QueryTextEditor extends React.Component<
     return (
       <div>
         <Editor
-          width="100vw"
           height="40vh"
           theme={'light'}
           language={'sql'}
