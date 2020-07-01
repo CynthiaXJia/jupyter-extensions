@@ -1,9 +1,11 @@
 import React from 'react';
-import Editor from '@monaco-editor/react';
 import { connect } from 'react-redux';
 import { updateQueryResult } from '../../../reducers/queryEditorTabSlice';
 
+import Editor from '@monaco-editor/react';
 import { editor } from 'monaco-editor/esm/vs/editor/editor.api';
+import { monaco } from '@monaco-editor/react';
+import { getSqlCompletionProvider } from './sql_completion';
 
 import { Button } from '@material-ui/core';
 import { stylesheet } from 'typestyle';
@@ -46,7 +48,8 @@ class QueryTextEditor extends React.Component<
   QueryTextEditorState
 > {
   queryService: QueryService;
-  editor: editor.IStandaloneCodeEditor;
+  // editor: editor.IStandaloneCodeEditor;
+  editor: any;
 
   constructor(props) {
     super(props);
@@ -71,7 +74,30 @@ class QueryTextEditor extends React.Component<
   }
 
   handleEditorDidMount(_, editor) {
-    this.editor = editor;
+    // this.editor = editor;
+    console.log('editor mounted: ', this.editor);
+  }
+
+  componentDidMount() {
+    this.editor = monaco
+      .init()
+      .then(monaco => {
+        this.editor = monaco.languages.registerCompletionItemProvider(
+          'sql',
+          getSqlCompletionProvider(monaco)
+        );
+        console.log('autocomplete registered', this.editor);
+      })
+      .catch(error =>
+        console.error(
+          'An error occurred during initialization of Monaco: ',
+          error
+        )
+      );
+  }
+
+  componentWillUnmount() {
+    this.editor.dispose();
   }
 
   render() {
