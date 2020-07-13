@@ -53,7 +53,7 @@ interface QueryRequestBodyType {
 
 const SQL_EDITOR_OPTIONS: editor.IEditorConstructionOptions = {
   lineNumbers: 'on',
-  automaticLayout: true,
+  // automaticLayout: true,
   formatOnType: true,
   formatOnPaste: true,
   wordWrap: 'on',
@@ -141,6 +141,18 @@ class QueryTextEditor extends React.Component<
     this.props.deleteQueryEntry(this.queryId);
   }
 
+  updateDimensions() {
+    this.editor.layout();
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.updateDimensions.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions.bind(this));
+  }
+
   componentDidUpdate(prevProps: QueryTextEditorProps) {
     if (prevProps.sidePanelIsOpen !== this.props.sidePanelIsOpen) {
       console.log(
@@ -149,7 +161,7 @@ class QueryTextEditor extends React.Component<
         ' now: ',
         this.props.sidePanelIsOpen
       );
-      this.editor.layout();
+      this.updateDimensions.bind(this);
     }
   }
 
