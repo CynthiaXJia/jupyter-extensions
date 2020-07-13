@@ -32,10 +32,6 @@ export const localStyles = stylesheet({
   },
   detailsBody: {
     fontSize: '13px',
-    flex: 1,
-    minHeight: 0,
-    display: 'flex',
-    flexDirection: 'column',
     marginTop: '24px',
   },
   labelContainer: {
@@ -51,11 +47,6 @@ export const localStyles = stylesheet({
   row: {
     display: 'flex',
     padding: '6px',
-  },
-  scrollable: {
-    flex: 1,
-    minHeight: 0,
-    overflow: 'auto',
   },
 });
 
@@ -134,8 +125,8 @@ export const DetailsPanel: React.SFC<Props> = props => {
         )}
 
         {detailsType === 'table' && (
-          <div className={localStyles.scrollable}>
-            {details.schema ? (
+          <div>
+            {details.schema && details.schema.length > 0 ? (
               <Table
                 size="small"
                 style={{ width: 'auto', tableLayout: 'auto' }}

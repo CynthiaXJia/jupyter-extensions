@@ -164,6 +164,8 @@ def format_preview_row(row):
     elif isinstance(value, datetime.datetime):
       formatted_row.append(json.dumps(value.strftime('%Y-%m-%d %H:%M:%S.%f %Z'))[1:-1])
 
+    elif value is None:
+      formatted_row.append(None)
     else:
       formatted_row.append(value.__str__())
 

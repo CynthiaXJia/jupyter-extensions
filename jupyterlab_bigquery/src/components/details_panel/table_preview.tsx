@@ -40,6 +40,10 @@ const localStyles = stylesheet({
     minHeight: 0,
     overflow: 'auto',
   },
+  null: {
+    fontStyle: 'italic',
+    color: 'gray',
+  },
 });
 
 interface Props {
@@ -155,7 +159,9 @@ export default class TablePreviewPanel extends React.Component<Props, State> {
                                 'preview_row_' + indexRow + '_cell' + indexCell
                               }
                             >
-                              {cell}
+                              {cell ?? (
+                                <div className={localStyles.null}>null</div>
+                              )}
                             </TableCell>
                           ))}
                         </TableRow>
