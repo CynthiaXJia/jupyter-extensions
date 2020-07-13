@@ -7,6 +7,7 @@ import {
 
 export interface DataTreeState {
   data: { projects: {}; projectIds: string[] };
+  isOpen: boolean;
 }
 
 const initialState: DataTreeState = {
@@ -14,6 +15,7 @@ const initialState: DataTreeState = {
     projects: {},
     projectIds: [],
   },
+  isOpen: false,
 };
 
 const dataTreeSlice = createSlice({
@@ -53,6 +55,9 @@ const dataTreeSlice = createSlice({
         [datasetId]: datasetResult,
       };
     },
+    updateOpenState(state, action: PayloadAction<boolean>) {
+      state.isOpen = action.payload;
+    },
   },
 });
 
@@ -61,6 +66,7 @@ export const {
   updateProject,
   updateDataset,
   addProject,
+  updateOpenState,
 } = dataTreeSlice.actions;
 
 export default dataTreeSlice.reducer;

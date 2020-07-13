@@ -18,7 +18,11 @@ import ListProjectItem from './list_tree_item';
 import { WidgetManager } from '../../utils/widgetManager/widget_manager';
 import ListSearchResults from './list_search_results';
 import { QueryEditorTabWidget } from '../query_editor/query_editor_tab/query_editor_tab_widget';
-import { updateDataTree, addProject } from '../../reducers/dataTreeSlice';
+import {
+  updateDataTree,
+  updateOpenState,
+  addProject,
+} from '../../reducers/dataTreeSlice';
 import {
   SearchProjectsService,
   SearchResult,
@@ -36,6 +40,7 @@ interface Props {
   updateDataTree: any;
   currentProject: string;
   addProject: any;
+  updateOpenState: any;
 }
 
 export interface Context {
@@ -213,6 +218,10 @@ class ListItemsPanel extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     const isFirstLoad =
       !(this.state.hasLoaded || prevProps.isVisible) && this.props.isVisible;
+    const panelToggled = this.props.isVisible !== prevProps.isVisible;
+    if (panelToggled) {
+      this.props.updateOpenState(this.props.isVisible);
+    }
     if (isFirstLoad) {
       this.getProjects();
     }
@@ -367,6 +376,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   updateDataTree,
   addProject,
+  updateOpenState,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListItemsPanel);

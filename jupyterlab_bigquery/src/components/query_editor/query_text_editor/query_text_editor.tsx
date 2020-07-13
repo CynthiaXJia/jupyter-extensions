@@ -29,6 +29,7 @@ interface QueryTextEditorProps {
   queryId: QueryId;
   iniQuery?: string;
   editorType?: QueryEditorType;
+  sidePanelIsOpen: boolean;
 }
 
 interface QueryResponseType {
@@ -138,6 +139,18 @@ class QueryTextEditor extends React.Component<
 
   componentWillUnmount() {
     this.props.deleteQueryEntry(this.queryId);
+  }
+
+  componentDidUpdate(prevProps: QueryTextEditorProps) {
+    if (prevProps.sidePanelIsOpen !== this.props.sidePanelIsOpen) {
+      console.log(
+        'previously open: ',
+        prevProps.sidePanelIsOpen,
+        ' now: ',
+        this.props.sidePanelIsOpen
+      );
+      this.editor.layout();
+    }
   }
 
   handleButtonClick() {
@@ -350,8 +363,9 @@ class QueryTextEditor extends React.Component<
   }
 }
 
-const mapStateToProps = _ => {
-  return {};
+const mapStateToProps = state => {
+  const sidePanelIsOpen = state.dataTree.isOpen;
+  return { sidePanelIsOpen };
 };
 
 const mapDispatchToProps = {
