@@ -74,8 +74,6 @@ class TestDatasetDetails(unittest.TestCase):
         }
     }
 
-    self.maxDiff = None
-
     result = handlers.get_dataset_details(client, 'some_dataset_id')
     self.assertEqual(expected, result)
 
@@ -90,10 +88,18 @@ class TestTableDetails(unittest.TestCase):
     )
     schema_field_0.name = 'field_name_0'
 
-    schema_field_1 = Mock(
+    schema_subfield = Mock(
         field_type = 'INTEGER', 
         description = 'this field is an integer', 
         mode = 'NULLABLE'
+    )
+    schema_subfield.name = 'subfield'
+
+    schema_field_1 = Mock(
+        field_type = 'RECORD', 
+        description = 'this field is a record', 
+        mode = 'NULLABLE',
+        fields = [schema_subfield]
     )
     schema_field_1.name = 'field_name_1'
     
@@ -136,6 +142,11 @@ class TestTableDetails(unittest.TestCase):
                 'mode': 'NULLABLE'
               }, {
                 'name': 'field_name_1', 
+                'type': 'RECORD', 
+                'description': 'this field is a record', 
+                'mode': 'NULLABLE'
+              }, {
+                'name': 'field_name_1.subfield', 
                 'type': 'INTEGER', 
                 'description': 'this field is an integer', 
                 'mode': 'NULLABLE'
@@ -188,6 +199,54 @@ class TestTableDetails(unittest.TestCase):
 
     result = handlers.get_table_details(client, 'some_table_id')
     self.assertEqual(expected, result)
+
+class testTablePreview(unittest.TestCase):
+    def testFullTable(self):
+        client = Mock()
+
+        schema_field_0 = Mock(
+            field_type = 'STRING', 
+            description = 'this field is a string', 
+            mode = 'NULLABLE'
+        )
+        schema_field_0.name = 'field_name_0'
+
+        schema_subfield = Mock(
+            field_type = 'INTEGER', 
+            description = 'this field is an integer', 
+            mode = 'NULLABLE'
+        )
+        schema_subfield.name = 'subfield'
+
+        schema_field_1 = Mock(
+            field_type = 'RECORD', 
+            description = 'this field is a record', 
+            mode = 'NULLABLE',
+            fields = [schema_subfield]
+        )
+        schema_field_1.name = 'field_name_1'
+
+        rows = MagicMock(schema = [schema_field_0, schema_field_1])
+        row_0 = Mock()
+        row_0.values = Mock(return_value = ['hello', {'subfield': 1}])
+        row_1 = Mock()
+        row_1.values = Mock(return_value = ['goodbye', {'subfield': 2}])
+        rows.__iter__.return_value = [row_0, row_1]
+
+        client.list_rows = Mock(return_value = rows)
+
+        expected = {
+            'fields': ['field_name_0', 'field_name_1.subfield'],
+            'rows': [['hello', 1], ['goodbye', 2]]
+        }
+
+        result = handlers.get_table_preview(client, 'some_table_id')
+        self.assertEqual(expected, result)
+
+        self.maxDiff = None
+
+    def testEmptyTable(self):
+        pass
 
 if __name__ == '__main__':
   unittest.main()
