@@ -137,10 +137,6 @@ class QueryTextEditor extends React.Component<
     this.queryId = props.queryId;
   }
 
-  componentWillUnmount() {
-    this.props.deleteQueryEntry(this.queryId);
-  }
-
   updateDimensions() {
     this.editor.layout();
   }
@@ -150,6 +146,7 @@ class QueryTextEditor extends React.Component<
   }
 
   componentWillUnmount() {
+    this.props.deleteQueryEntry(this.queryId);
     window.removeEventListener('resize', this.updateDimensions.bind(this));
   }
 
