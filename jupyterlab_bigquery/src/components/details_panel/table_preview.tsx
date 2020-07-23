@@ -117,6 +117,7 @@ export default class TablePreviewPanel extends React.Component<Props, State> {
   render() {
     const { rowsPerPage, page } = this.state;
     const rows = this.state.preview.rows;
+    console.log(rows);
     const fields = ['Row', ...this.state.preview.fields];
     if (this.state.isLoading) {
       return <LoadingPanel />;
