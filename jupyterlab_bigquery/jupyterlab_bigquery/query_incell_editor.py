@@ -1,4 +1,4 @@
-from ipywidgets import DOMWidget
+from ipywidgets import DOMWidget, Layout
 from traitlets import Unicode, Any
 from IPython.core import magic_arguments
 import IPython

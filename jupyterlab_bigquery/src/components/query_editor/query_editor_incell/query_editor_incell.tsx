@@ -11,8 +11,9 @@ import {
 import { DOMWidgetView } from '@jupyter-widgets/base';
 
 interface QueryEditorInCellProps {
-  queryResult: QueryResult;
+  queries: { [key: string]: QueryResult };
   ipyView: DOMWidgetView;
+  sidePanelIsOpen: boolean;
 }
 
 export class QueryEditorInCell extends Component<QueryEditorInCellProps, {}> {
@@ -33,14 +34,31 @@ export class QueryEditorInCell extends Component<QueryEditorInCellProps, {}> {
     // TODO: handle python query change
   }
 
+  updateDimensions() {
+    console.log('resized');
+  }
+
+  componentDidUpdate(prevProps: QueryEditorInCellProps) {
+    if (prevProps.sidePanelIsOpen !== this.props.sidePanelIsOpen) {
+      // console.log(
+      //   'previously open: ',
+      //   prevProps.sidePanelIsOpen,
+      //   ' now: ',
+      //   this.props.sidePanelIsOpen
+      // );
+      this.updateDimensions.bind(this);
+    }
+  }
+
   render() {
-    const { queryResult } = this.props;
+    const { queries } = this.props;
+    const queryResult = queries[this.queryId];
 
     // eslint-disable-next-line no-extra-boolean-cast
     const showResult = !!queryResult;
 
     return (
-      <div style={{ width: '75vw' }}>
+      <div style={{ width: '100%' }}>
         <QueryTextEditor
           queryId={this.queryId}
           iniQuery={this.iniQuery}
@@ -57,10 +75,10 @@ export class QueryEditorInCell extends Component<QueryEditorInCellProps, {}> {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const queryId = ownProps.queryId;
-  const queryResult = state.queryEditorTab.queries[queryId];
-
-  return { queryResult: queryResult };
+  return {
+    queries: state.queryEditorTab.queries,
+    sidePanelIsOpen: state.dataTree.isOpen,
+  };
 };
 
 export default connect(mapStateToProps)(QueryEditorInCell);
