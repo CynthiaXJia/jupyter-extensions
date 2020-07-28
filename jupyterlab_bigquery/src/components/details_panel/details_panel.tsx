@@ -13,6 +13,7 @@ import {
 import { stylesheet } from 'typestyle';
 import { SchemaField } from './service/list_table_details';
 import { ModelSchema } from './service/list_model_details';
+import { StripedRows } from '../shared/striped_rows';
 
 export const localStyles = stylesheet({
   header: {
@@ -56,10 +57,6 @@ export const TableHeadCell: React.ComponentType<any> = withStyles({
     backgroundColor: '#f0f0f0',
   },
 })(TableCell);
-
-const getStripedStyle = index => {
-  return { background: index % 2 ? 'white' : '#fafafa' };
-};
 
 const formatFieldName = name => {
   if (name.includes('.')) {
@@ -123,20 +120,18 @@ export const DetailsPanel: React.SFC<Props> = props => {
             <div className={localStyles.title}>
               {detailsType === 'table' ? 'Table' : 'Dataset'} info
             </div>
-            {rows.map((row, index) => (
-              <div
-                key={index}
-                className={localStyles.row}
-                style={{ ...getStripedStyle(index) }}
-              >
-                <div className={localStyles.rowTitle}>
-                  <b>{row.name}</b>
-                </div>
-                <div>{row.value}</div>
-              </div>
-            ))}
+            <StripedRows rows={rows} />
           </Grid>
         </Grid>
+
+        {detailsType === 'MODEL' && (
+          <div>
+            <div className={localStyles.title} style={{ marginTop: '32px' }}>
+              Training options
+            </div>
+            <div>training stuff here</div>
+          </div>
+        )}
 
         {detailsType === 'table' && (
           <div className={localStyles.title} style={{ marginTop: '32px' }}>
@@ -181,7 +176,7 @@ export const DetailsPanel: React.SFC<Props> = props => {
         {detailsType === 'MODEL' && (
           <div>
             <div className={localStyles.title} style={{ marginTop: '32px' }}>
-              Labels
+              Label columns
             </div>
             <div>
               {details.schema_labels && details.schema_labels.length > 0 ? (
@@ -210,8 +205,8 @@ export const DetailsPanel: React.SFC<Props> = props => {
                 'Model does not have any label columns.'
               )}
             </div>
-            <div className={localStyles.title} style={{ marginTop: '32px' }}>
-              Features
+            <div className={localStyles.title} style={{ marginTop: '24px' }}>
+              Feature columns
             </div>
             <div>
               {details.feature_columns && details.feature_columns.length > 0 ? (

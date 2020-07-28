@@ -1,1 +1,1 @@
-from .details_handler import DatasetDetailsHandler, TableDetailsHandler, TablePreviewHandler, ModelDetailsHandler, format_preview_fields, format_preview_row
+from .details_handler import DatasetDetailsHandler, TableDetailsHandler, TablePreviewHandler, ModelDetailsHandler, ModelEvaluationHandler, format_preview_fields, format_preview_row

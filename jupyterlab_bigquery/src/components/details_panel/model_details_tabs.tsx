@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ModelDetailsService } from './service/list_model_details';
 import LoadingPanel from '../loading_panel';
 import ModelDetailsPanel from './model_details_panel';
+import ModelEvaluation from './model_evaluation_panel';
 
 import { Header } from '../shared/header';
 import { StyledTabs, StyledTab, TabPanel } from '../shared/tabs';
@@ -23,7 +24,7 @@ interface State {
 
 enum TabInds {
   details = 0,
-  schema,
+  evaluation,
 }
 
 export default class TableDetailsTabs extends React.Component<Props, State> {
@@ -53,17 +54,29 @@ export default class TableDetailsTabs extends React.Component<Props, State> {
               onChange={this.handleChange.bind(this)}
             >
               <StyledTab label="Details" />
-              <StyledTab label="Schema" />
+              <StyledTab label="Evaluation" />
             </StyledTabs>
-            <TabPanel value={this.state.currentTab} index={TabInds.details}>
+            <TabPanel
+              value={this.state.currentTab}
+              index={TabInds.details}
+              TabInds={TabInds}
+            >
               <ModelDetailsPanel
-                tableId={this.props.model_id}
+                modelId={this.props.model_id}
                 isVisible={this.props.isVisible}
                 modelDetailsService={this.props.modelDetailsService}
               />
             </TabPanel>
-            <TabPanel value={this.state.currentTab} index={TabInds.schema}>
-              <div>Model schema will go here</div>
+            <TabPanel
+              value={this.state.currentTab}
+              index={TabInds.evaluation}
+              TabInds={TabInds}
+            >
+              <ModelEvaluation
+                modelId={this.props.model_id}
+                isVisible={this.props.isVisible}
+                modelDetailsService={this.props.modelDetailsService}
+              />
             </TabPanel>
           </div>
         </div>

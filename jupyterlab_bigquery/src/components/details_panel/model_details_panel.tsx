@@ -9,7 +9,7 @@ import { DetailsPanel } from './details_panel';
 interface Props {
   modelDetailsService: ModelDetailsService;
   isVisible: boolean;
-  tableId: string;
+  modelId: string;
 }
 
 interface State {
@@ -47,7 +47,7 @@ export default class ModelDetailsPanel extends React.Component<Props, State> {
     try {
       this.setState({ isLoading: true });
       const details = await this.props.modelDetailsService.listModelDetails(
-        this.props.tableId
+        this.props.modelId
       );
 
       const detailsObj = details.details;
@@ -77,7 +77,7 @@ export default class ModelDetailsPanel extends React.Component<Props, State> {
       ];
       this.setState({ hasLoaded: true, details, rows });
     } catch (err) {
-      console.warn('Error retrieving table details', err);
+      console.warn('Error retrieving model details', err);
     } finally {
       this.setState({ isLoading: false });
     }

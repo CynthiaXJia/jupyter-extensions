@@ -79,14 +79,22 @@ export default class TableDetailsTabs extends React.Component<Props, State> {
               <StyledTab label="Details" />
               <StyledTab label="Preview" />
             </StyledTabs>
-            <TabPanel value={this.state.currentTab} index={TabInds.details}>
+            <TabPanel
+              value={this.state.currentTab}
+              index={TabInds.details}
+              TabInds={TabInds}
+            >
               <TableDetailsPanel
                 tableId={this.props.table_id}
                 isVisible={this.props.isVisible}
                 tableDetailsService={this.props.tableDetailsService}
               />
             </TabPanel>
-            <TabPanel value={this.state.currentTab} index={TabInds.preview}>
+            <TabPanel
+              value={this.state.currentTab}
+              index={TabInds.preview}
+              TabInds={TabInds}
+            >
               <TablePreviewPanel
                 tableId={this.props.table_id}
                 isVisible={this.props.isVisible}

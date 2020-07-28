@@ -41,10 +41,11 @@ interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+  TabInds: any;
 }
 
 export function TabPanel(props: TabPanelProps) {
-  const { children, value, index } = props;
+  const { children, value, index, TabInds } = props;
 
   return (
     <div
@@ -54,6 +55,8 @@ export function TabPanel(props: TabPanelProps) {
         minHeight: 0,
         flexDirection: 'column',
         display: value !== index ? 'none' : 'flex',
+        overflowX: value === TabInds.preview ? 'auto' : 'hidden',
+        overflowY: 'auto',
       }}
     >
       {children}

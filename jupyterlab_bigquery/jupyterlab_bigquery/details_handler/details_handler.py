@@ -187,11 +187,9 @@ def get_model_details(client, model_id):
   # print('training runs:', MessageToDict(model.training_runs))
   # print('training runs', model.training_runs.DESCRIPTOR)
 
-  for label_col in model.label_columns:
-    print(label_col.name, label_col.type)
-
-  for feat_col in model.feature_columns:
-    print(feat_col.name, feat_col.type)
+  # for run in model.training_runs:
+  #   print(run.training_options)
+  #   print(run.evaluation_metrics)
 
   return {
       'details': {
@@ -228,6 +226,19 @@ def get_model_details(client, model_id):
       }
   }
 
+def get_model_evaluation(client, model_id):
+  model = client.get_model(model_id)
+  metrics = model.training_runs[0].evaluation_metrics.regression_metrics
+
+  return {
+    'evaluation': {
+      'abs_error': metrics.mean_absolute_error.value,
+      'mean_sq_error': metrics.mean_absolute_error.value,
+      'mean_sq_log_error': metrics.mean_squared_log_error.value,
+      'median_abs_error': metrics.median_absolute_error.value,
+      'r_squared': metrics.r_squared.value
+    }
+  }
 
 class DatasetDetailsHandler(APIHandler):
   """Handles requests for dataset metadata."""
@@ -293,6 +304,22 @@ class ModelDetailsHandler(APIHandler):
       self.bigquery_client = create_bigquery_client()
       post_body = self.get_json_body()
       self.finish(get_model_details(self.bigquery_client, post_body['modelId']))
+
+    except Exception as e:
+      app_log.exception(str(e))
+      self.set_status(500, str(e))
+      self.finish({'error': {'message': str(e)}})
+
+class ModelEvaluationHandler(APIHandler):
+  """Handles requests for model evaluation info."""
+  bigquery_client = None
+
+  @gen.coroutine
+  def post(self, *args, **kwargs):
+    try:
+      self.bigquery_client = create_bigquery_client()
+      post_body = self.get_json_body()
+      self.finish(get_model_evaluation(self.bigquery_client, post_body['modelId']))
 
     except Exception as e:
       app_log.exception(str(e))
