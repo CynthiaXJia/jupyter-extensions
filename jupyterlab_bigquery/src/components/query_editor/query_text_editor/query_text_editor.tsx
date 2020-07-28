@@ -27,7 +27,7 @@ interface QueryTextEditorProps {
   resetQueryResult: any;
   deleteQueryEntry: any;
   queryId: QueryId;
-  iniQuery?: string;
+  starterQuery?: string;
   editorType?: QueryEditorType;
 }
 
@@ -299,7 +299,7 @@ class QueryTextEditor extends React.Component<
   }
 
   render() {
-    const { iniQuery } = this.props;
+    const { starterQuery } = this.props;
 
     // eslint-disable-next-line no-extra-boolean-cast
     const readableSize = !!this.state.bytesProcessed
@@ -309,7 +309,7 @@ class QueryTextEditor extends React.Component<
     const errMsg = this.state.errorMsg;
 
     // eslint-disable-next-line no-extra-boolean-cast
-    const queryValue = !!iniQuery ? iniQuery : 'SELECT * FROM *';
+    const queryValue = !!starterQuery ? starterQuery : 'SELECT * FROM *';
 
     return (
       <div
@@ -350,8 +350,9 @@ class QueryTextEditor extends React.Component<
   }
 }
 
-const mapStateToProps = _ => {
-  return {};
+const mapStateToProps = state => {
+  const starterQuery = state.queryEditorTab.starterQuery;
+  return { starterQuery };
 };
 
 const mapDispatchToProps = {

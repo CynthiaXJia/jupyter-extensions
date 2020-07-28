@@ -9,6 +9,9 @@ import { Header } from '../shared/header';
 import LoadingPanel from '../loading_panel';
 import TableDetailsPanel from './table_details_panel';
 import TablePreviewPanel from './table_preview';
+import { QueryEditorTabWidget } from '../query_editor/query_editor_tab/query_editor_tab_widget';
+import { WidgetManager } from '../../utils/widgetManager/widget_manager';
+import { generateQueryId } from '../../reducers/queryEditorTabSlice';
 import { stylesheet } from 'typestyle';
 
 const localStyles = stylesheet({
@@ -135,7 +138,13 @@ export default class TableDetailsTabs extends React.Component<Props, State> {
           <Header text={this.props.table_name}>
             <Button
               onClick={() => {
-                console.log('clicked');
+                WidgetManager.getInstance().launchWidget(
+                  QueryEditorTabWidget,
+                  'main',
+                  generateQueryId(),
+                  null,
+                  [`SELECT * FROM ${this.props.table_id}`]
+                );
               }}
             >
               Query table

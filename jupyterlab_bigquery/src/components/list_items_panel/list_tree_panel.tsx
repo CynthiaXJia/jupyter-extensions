@@ -25,6 +25,7 @@ import {
 } from '../list_items_panel/service/search_items';
 import { SearchBar } from './search_bar';
 import { DialogComponent } from 'gcp_jupyterlab_shared';
+import { generateQueryId } from '../../reducers/queryEditorTabSlice';
 
 interface Props {
   listProjectsService: ListProjectsService;
@@ -241,7 +242,8 @@ class ListItemsPanel extends React.Component<Props, State> {
             onClick={() => {
               WidgetManager.getInstance().launchWidget(
                 QueryEditorTabWidget,
-                'main'
+                'main',
+                generateQueryId()
               );
             }}
           >

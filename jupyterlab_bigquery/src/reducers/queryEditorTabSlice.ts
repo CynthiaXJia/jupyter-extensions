@@ -4,9 +4,15 @@ import { UUID } from '@phosphor/coreutils';
 
 export interface QueryEditorState {
   queries: { [key: string]: QueryResult };
+  starterQueries: { [key: string]: string };
 }
 
 export type QueryId = string;
+
+interface QueryStarter {
+  queryId: QueryId;
+  starterQuery: string;
+}
 
 const DEFAULT_INIT_QUERY_STATE = {
   content: [],
@@ -17,6 +23,7 @@ const DEFAULT_INIT_QUERY_STATE = {
 
 const initialState: QueryEditorState = {
   queries: {},
+  starterQueries: {},
 };
 
 export function generateQueryId() {
@@ -58,6 +65,10 @@ const queryEditorTabSlice = createSlice({
     deleteQueryEntry(state, action: PayloadAction<QueryId>) {
       const queryId = action.payload;
       delete state.queries[queryId];
+    },
+    updateStarterQuery(state, action: PayloadAction<QueryStarter>) {
+      const queryStarter = action.payload;
+      state.starterQueries[queryStarter.queryId] = queryStarter.starterQuery;
     },
   },
 });
