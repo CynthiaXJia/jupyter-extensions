@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withStyles, Tabs, Tab } from '@material-ui/core';
+import { withStyles, Tabs, Tab, Button } from '@material-ui/core';
 
 import {
   TableDetailsService,
@@ -132,7 +132,15 @@ export default class TableDetailsTabs extends React.Component<Props, State> {
     } else {
       return (
         <div style={{ display: 'flex', flexFlow: 'column', height: '100%' }}>
-          <Header text={this.props.table_name} />
+          <Header text={this.props.table_name}>
+            <Button
+              onClick={() => {
+                console.log('clicked');
+              }}
+            >
+              Query table
+            </Button>
+          </Header>
           <div className={localStyles.body}>
             <StyledTabs
               value={this.state.currentTab}

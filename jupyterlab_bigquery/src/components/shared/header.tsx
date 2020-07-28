@@ -7,9 +7,19 @@ const localStyles = stylesheet({
     fontSize: '18px',
     margin: 0,
     padding: '8px 12px 8px 24px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });
 
-export const Header: React.SFC<{ text: string }> = props => {
-  return <header className={localStyles.header}>{props.text}</header>;
+export const Header: React.SFC<{
+  text: string;
+  children?: React.ReactNode;
+}> = props => {
+  return (
+    <header className={localStyles.header}>
+      {props.text} {props.children}
+    </header>
+  );
 };
