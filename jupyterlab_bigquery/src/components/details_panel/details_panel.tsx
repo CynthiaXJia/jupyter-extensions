@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import { stylesheet } from 'typestyle';
 import { SchemaField } from './service/list_table_details';
+import { ModelSchema } from './service/list_model_details';
 
 export const localStyles = stylesheet({
   header: {
@@ -50,7 +51,7 @@ export const localStyles = stylesheet({
   },
 });
 
-const TableHeadCell = withStyles({
+export const TableHeadCell: React.ComponentType<any> = withStyles({
   root: {
     backgroundColor: '#f0f0f0',
   },
@@ -80,6 +81,8 @@ interface SharedDetails {
   labels: string[];
   name: string;
   schema?: SchemaField[];
+  schema_labels?: ModelSchema[];
+  feature_columns?: ModelSchema[];
 }
 
 interface Props {
@@ -172,6 +175,71 @@ export const DetailsPanel: React.SFC<Props> = props => {
             ) : (
               'Table does not have a schema.'
             )}
+          </div>
+        )}
+
+        {detailsType === 'MODEL' && (
+          <div>
+            <div className={localStyles.title} style={{ marginTop: '32px' }}>
+              Labels
+            </div>
+            <div>
+              {details.schema_labels && details.schema_labels.length > 0 ? (
+                <Table
+                  size="small"
+                  style={{ width: 'auto', tableLayout: 'auto' }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableHeadCell>Field name</TableHeadCell>
+                      <TableHeadCell>Type</TableHeadCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {details.schema_labels.map((field, index) => {
+                      return (
+                        <TableRow key={`schema_label_row_${index}`}>
+                          <TableCell>{field.name}</TableCell>
+                          <TableCell>{field.type}</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              ) : (
+                'Model does not have any label columns.'
+              )}
+            </div>
+            <div className={localStyles.title} style={{ marginTop: '32px' }}>
+              Features
+            </div>
+            <div>
+              {details.feature_columns && details.feature_columns.length > 0 ? (
+                <Table
+                  size="small"
+                  style={{ width: 'auto', tableLayout: 'auto' }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableHeadCell>Field name</TableHeadCell>
+                      <TableHeadCell>Type</TableHeadCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {details.feature_columns.map((field, index) => {
+                      return (
+                        <TableRow key={`schema_feature_row_${index}`}>
+                          <TableCell>{field.name}</TableCell>
+                          <TableCell>{field.type}</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              ) : (
+                'Model does not have any feature columns.'
+              )}
+            </div>
           </div>
         )}
       </div>

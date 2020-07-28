@@ -70,10 +70,10 @@ export default class ModelDetailsPanel extends React.Component<Props, State> {
           name: 'Model type',
           value: detailsObj.model_type,
         },
-        // {
-        //     name: 'Loss type',
-        //     value: detailsObj.loss_type
-        // }
+        {
+          name: 'Loss type',
+          value: detailsObj.loss_type,
+        },
       ];
       this.setState({ hasLoaded: true, details, rows });
     } catch (err) {

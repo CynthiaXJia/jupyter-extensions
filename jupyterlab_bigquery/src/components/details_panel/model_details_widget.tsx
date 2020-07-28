@@ -2,7 +2,7 @@ import { ReactWidget } from '@jupyterlab/apputils';
 import * as React from 'react';
 
 import { ModelDetailsService } from './service/list_model_details';
-import ModelDetailsTabs from './model/model_details_tabs';
+import ModelDetailsTabs from './model_details_tabs';
 
 /** Widget to be registered in the main panel. */
 export class ModelDetailsWidget extends ReactWidget {

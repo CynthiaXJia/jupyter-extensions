@@ -184,12 +184,14 @@ def get_table_preview(client, table_id):
 def get_model_details(client, model_id):
   model = client.get_model(model_id)
   # print('training runs:', MessageToDict(model.training_runs, preserving_proto_field_name = True))
-  print('training runs:', MessageToDict(model.training_runs))
-
+  # print('training runs:', MessageToDict(model.training_runs))
   # print('training runs', model.training_runs.DESCRIPTOR)
-  # print('label cols:', model.label_columns)
-  # print('feature cols:', model.feature_columns)
-  # print('encryption config', model.encryption_configuration)
+
+  for label_col in model.label_columns:
+    print(label_col.name, label_col.type)
+
+  for feat_col in model.feature_columns:
+    print(feat_col.name, feat_col.type)
 
   return {
       'details': {
@@ -217,6 +219,12 @@ def get_model_details(client, model_id):
               model.location,
           'model_type':
               model.model_type,
+          'schema_labels': [
+            {'name': label_col.name, 'type': label_col.type.type_kind} for label_col in model.label_columns
+          ],
+          'feature_columns': [
+            {'name': feat_col.name, 'type': feat_col.type.type_kind} for feat_col in model.feature_columns
+          ]
       }
   }
 

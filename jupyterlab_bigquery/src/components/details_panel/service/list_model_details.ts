@@ -11,6 +11,14 @@ export interface ModelDetailsObject {
   location: string;
   last_modified: string;
   model_type: string;
+  loss_type: string;
+  schema_labels: ModelSchema[];
+  feature_columns: ModelSchema[];
+}
+
+export interface ModelSchema {
+  name: string;
+  type: string;
 }
 
 export interface ModelDetails {
