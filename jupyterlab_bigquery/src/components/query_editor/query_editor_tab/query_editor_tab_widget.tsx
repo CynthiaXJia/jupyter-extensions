@@ -13,7 +13,7 @@ const localStyles = stylesheet({
 export class QueryEditorTabWidget extends ReduxReactWidget {
   id = 'query-editor-tab';
 
-  constructor() {
+  constructor(private queryId: string, private iniQuery: string) {
     super();
     this.title.label = 'Query Editor';
     this.title.closable = true;
@@ -22,7 +22,11 @@ export class QueryEditorTabWidget extends ReduxReactWidget {
   renderReact() {
     return (
       <div className={localStyles.panel}>
-        <QueryEditorTab isVisible={this.isVisible} />
+        <QueryEditorTab
+          isVisible={this.isVisible}
+          queryId={this.queryId}
+          iniQuery={this.iniQuery}
+        />
       </div>
     );
   }

@@ -47,6 +47,7 @@ export class WidgetManager {
     let widget = this.reduxWidgets[id];
     if (!widget || widget.isDisposed) {
       widget = new widgetType(...widgetArgs);
+      widget.id = id;
       widget.setProviderProps({ store: this.store });
 
       if (postProcess !== undefined) {
