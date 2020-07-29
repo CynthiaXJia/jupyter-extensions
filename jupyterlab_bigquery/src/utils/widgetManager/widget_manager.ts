@@ -69,6 +69,15 @@ export class WidgetManager {
     this.app.shell.activateById(widget.id);
   }
 
+  updateTitle(id: string, newTitle: string) {
+    if (!id) return;
+
+    let widget = this.reduxWidgets[id];
+    if (!widget) return;
+
+    widget.title.label = newTitle;
+  }
+
   /**
    * Launch a widget on main window
    *
