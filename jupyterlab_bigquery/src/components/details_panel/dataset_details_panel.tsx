@@ -9,6 +9,9 @@ import LoadingPanel from '../loading_panel';
 import { DetailsPanel } from './details_panel';
 import { stylesheet } from 'typestyle';
 
+// import * as moment from 'moment';
+import 'moment-timezone';
+
 const localStyles = stylesheet({
   body: {
     marginBottom: '24px',
@@ -94,6 +97,8 @@ export default class DatasetDetailsPanel extends React.Component<Props, State> {
   }
 
   render() {
+    const moment = require('moment-timezone');
+    console.log(moment.tz.guess());
     if (this.state.isLoading) {
       return <LoadingPanel />;
     } else {

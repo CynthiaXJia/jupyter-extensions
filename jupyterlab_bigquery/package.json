@@ -65,6 +65,8 @@
     "@reduxjs/toolkit": "^1.4.0",
     "csstips": "1.2.0",
     "gcp_jupyterlab_shared": "^1.0.0",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
     "monaco-editor": "^0.20.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
