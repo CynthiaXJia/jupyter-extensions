@@ -158,7 +158,8 @@ class QueryTextEditor extends React.Component<
         ' now: ',
         this.props.sidePanelIsOpen
       );
-      this.updateDimensions.bind(this);
+      // window.dispatchEvent(new Event('resize'));
+      this.updateDimensions.bind(this)();
     }
   }
 
