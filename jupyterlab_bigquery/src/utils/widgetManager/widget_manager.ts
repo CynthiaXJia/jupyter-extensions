@@ -72,7 +72,7 @@ export class WidgetManager {
   updateTitle(id: string, newTitle: string) {
     if (!id) return;
 
-    let widget = this.reduxWidgets[id];
+    const widget = this.reduxWidgets[id];
     if (!widget) return;
 
     widget.title.label = newTitle;
