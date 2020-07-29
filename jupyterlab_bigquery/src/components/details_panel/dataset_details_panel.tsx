@@ -97,8 +97,8 @@ export default class DatasetDetailsPanel extends React.Component<Props, State> {
   }
 
   render() {
-    const moment = require('moment-timezone');
-    console.log(moment.tz.guess());
+    // const moment = require('moment-timezone');
+    // console.log(moment.tz.guess());
     if (this.state.isLoading) {
       return <LoadingPanel />;
     } else {
