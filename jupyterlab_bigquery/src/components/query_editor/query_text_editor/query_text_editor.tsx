@@ -261,7 +261,7 @@ class QueryTextEditor extends React.Component<
           this.setState({ queryState: QueryStates.READY });
         }
       },
-      2000
+      5000000
     );
   }
 
