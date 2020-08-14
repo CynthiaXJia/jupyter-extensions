@@ -4,6 +4,7 @@ from notebook.utils import url_path_join
 
 from jupyterlab_bigquery.list_items_handler import Handlers
 from jupyterlab_bigquery.details_handler import DatasetDetailsHandler, TablePreviewHandler, TableDetailsHandler, ViewDetailsHandler, ModelDetailsHandler
+from jupyterlab_bigquery.create_table_handler import CreateTableHandler
 from jupyterlab_bigquery.version import VERSION
 from jupyterlab_bigquery.query_history_handler import QueryHistoryHandler, GetQueryDetailsHandler
 from jupyterlab_bigquery.pagedAPI_handler import PagedQueryHandler
@@ -41,6 +42,7 @@ def load_jupyter_server_extension(nb_server_app):
         # TODO(cbwilkes): Add auth checking if needed.
         # (url_path_join(gcp_v1_endpoint, auth'), AuthHandler)
         make_endpoint('datasetdetails', DatasetDetailsHandler),
+        make_endpoint('createTable', CreateTableHandler),
         make_endpoint('tabledetails', TableDetailsHandler),
         make_endpoint('tablepreview', TablePreviewHandler),
         make_endpoint('viewdetails', ViewDetailsHandler),

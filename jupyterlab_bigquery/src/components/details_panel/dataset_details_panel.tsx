@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Button, Drawer } from '@material-ui/core';
 
 import {
   DatasetDetailsService,
@@ -9,6 +10,7 @@ import LoadingPanel from '../loading_panel';
 import { DetailsPanel } from './details_panel';
 import { stylesheet } from 'typestyle';
 import { formatDate } from '../../utils/formatters';
+import { CreateTableService } from './service/create_table';
 
 export const localStyles = stylesheet({
   body: {
@@ -24,6 +26,12 @@ export const localStyles = stylesheet({
     display: 'flex',
     flexDirection: 'column',
   },
+  formSection: {
+    marginBottom: '30px',
+  },
+  formHeader: {
+    fontSize: '15px',
+  },
 });
 
 interface Props {
@@ -35,8 +43,13 @@ interface Props {
 interface State {
   hasLoaded: boolean;
   isLoading: boolean;
+  drawerOpen: boolean;
   details: DatasetDetails;
   rows: DetailRow[];
+  source: string;
+  projectId: string;
+  tableId: string;
+  datasetId: string;
 }
 
 interface DetailRow {
@@ -50,8 +63,13 @@ export default class DatasetDetailsPanel extends React.Component<Props, State> {
     this.state = {
       hasLoaded: false,
       isLoading: false,
+      drawerOpen: false,
+      source: 'empty',
       details: { details: {} } as DatasetDetails,
       rows: [],
+      projectId: null,
+      tableId: null,
+      datasetId: null,
     };
   }
 
@@ -109,7 +127,102 @@ export default class DatasetDetailsPanel extends React.Component<Props, State> {
     } else {
       return (
         <div className={localStyles.container}>
-          <Header text={this.props.dataset_id} />
+          <Drawer anchor="right" open={this.state.drawerOpen}>
+            <div style={{ margin: '24px' }}>
+              <div>Create table</div>
+              <form
+                onSubmit={() => {
+                  const service = new CreateTableService();
+                  service.createTable(
+                    `${this.state.projectId}.${this.state.datasetId}.${this.state.tableId}`
+                  );
+                }}
+              >
+                <div className={localStyles.formSection}>
+                  <div className={localStyles.formHeader}>Source</div>
+                  <label>
+                    Create table from:
+                    <select
+                      onChange={event => {
+                        this.setState({ source: event.target.value as string });
+                      }}
+                      value={this.state.source}
+                    >
+                      <option value="empty">Empty table</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div className={localStyles.formSection}>
+                  <div className={localStyles.formHeader}>Destination</div>
+                  <div>
+                    <label>
+                      Project name:
+                      <input
+                        type="text"
+                        value={this.state.projectId}
+                        onChange={event => {
+                          this.setState({ projectId: event.target.value });
+                        }}
+                      />
+                    </label>
+                    <label>
+                      Dataset name:
+                      <input
+                        type="text"
+                        value={this.state.datasetId}
+                        onChange={event => {
+                          this.setState({ datasetId: event.target.value });
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <label>
+                    Table name:
+                    <input
+                      type="text"
+                      value={this.state.tableId}
+                      placeholder="Letters, numbers, and underscores allowed"
+                      onChange={event => {
+                        this.setState({ tableId: event.target.value });
+                      }}
+                    />
+                  </label>
+                </div>
+
+                <div className={localStyles.formSection}>
+                  <div className={localStyles.formHeader}>Schema</div>
+                </div>
+
+                <div className={localStyles.formSection}>
+                  <div className={localStyles.formHeader}>
+                    Partition and cluster settings
+                  </div>
+                  <input type="submit" value="Create table" />
+                </div>
+              </form>
+              <Button
+                onClick={() => {
+                  this.setState({ drawerOpen: false });
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </Drawer>
+          <Header
+            text={this.props.dataset_id}
+            buttons={[
+              <Button
+                onClick={() => {
+                  this.setState({ drawerOpen: true });
+                }}
+                style={{ textTransform: 'none' }}
+              >
+                Create table
+              </Button>,
+            ]}
+          />
           <div className={localStyles.body}>
             <DetailsPanel
               details={this.state.details.details}
