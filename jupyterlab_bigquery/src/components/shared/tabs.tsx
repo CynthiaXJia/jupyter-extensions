@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { withStyles, Tabs, Tab } from '@material-ui/core';
+import { gColor } from './styles';
 
 export const StyledTabs: React.ComponentType<any> = withStyles({
   root: {
-    borderBottom: '1px solid #e8e8e8',
+    borderBottom: '1px solid var(--jp-border-color2)',
     minHeight: 'auto',
     padding: 0,
   },
   indicator: {
-    backgroundColor: '#0d68ff',
     height: '2.5px',
+    backgroundColor: gColor('BLUE'),
   },
 })(Tabs);
 
+// TODO: Style for dark mode
 export const StyledTab: React.ComponentType<StyledTabProps> = withStyles({
   root: {
     textTransform: 'none',
@@ -20,14 +22,14 @@ export const StyledTab: React.ComponentType<StyledTabProps> = withStyles({
     minHeight: 'auto',
     fontSize: '13px',
     '&:hover': {
-      color: '#0d68ff',
+      color: gColor('BLUE'),
       opacity: 1,
     },
     '&$selected': {
-      color: '#0d68ff',
+      color: gColor('BLUE'),
     },
     '&:focus': {
-      color: '#0d68ff',
+      color: gColor('BLUE'),
     },
   },
   selected: {},

@@ -15,7 +15,7 @@ export const localStyles = stylesheet({
     marginBottom: '10px',
   },
   panel: {
-    backgroundColor: 'white',
+    backgroundColor: 'var(--jp-layout-color0)',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -45,10 +45,11 @@ export const localStyles = stylesheet({
   },
 });
 
+// TODO: Style for dark mode
 const StyledChip = withStyles({
   root: {
-    color: '#1967D2',
-    backgroundColor: 'rgba(25, 103, 210, 0.1)',
+    color: 'var(--jp-ui-font-color1)',
+    backgroundColor: 'var(--jp-border-color3)',
   },
 })(Chip);
 

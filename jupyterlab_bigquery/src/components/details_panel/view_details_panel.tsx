@@ -11,6 +11,7 @@ import { WidgetManager } from '../../utils/widgetManager/widget_manager';
 import { generateQueryId } from '../../reducers/queryEditorTabSlice';
 import { localStyles } from './dataset_details_panel';
 import { formatDate } from '../../utils/formatters';
+import { gColor } from '../shared/styles';
 
 interface Props {
   viewDetailsService: ViewDetailsService;
@@ -103,7 +104,10 @@ export default class ViewDetailsPanel extends React.Component<Props, State> {
                 );
               }}
               startIcon={<Code />}
-              style={{ textTransform: 'none', color: '#1A73E8' }}
+              style={{
+                textTransform: 'none',
+                color: gColor('BLUE'),
+              }}
             >
               Query view
             </Button>
