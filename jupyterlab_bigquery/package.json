@@ -69,8 +69,10 @@
     "gcp_jupyterlab_shared": "^1.0.0",
     "luxon": "^1.24.1",
     "monaco-editor": "^0.20.0",
+    "react-lazyload": "^3.0.0",
     "react-redux": "^7.2.0",
     "react-resize-detector": "^5.0.6",
+    "react-window": "^1.8.5",
     "redux": "^4.0.5",
     "typestyle": "^2.1.0"
   },

@@ -4,6 +4,7 @@ import { Paper, Collapse, LinearProgress, Icon } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { stylesheet } from 'typestyle';
 import { DateTime } from 'luxon';
+import LazyLoad from 'react-lazyload';
 
 import {
   QueryHistoryService,
@@ -22,13 +23,17 @@ import { BASE_FONT } from 'gcp_jupyterlab_shared';
 
 const localStyles = stylesheet({
   queryHistoryRoot: {
-    height: '100%',
+    // height: '100%',
+    // display: 'flex',
+    // flexDirection: 'column',
     ...BASE_FONT,
   },
   body: {
-    height: '100%',
-    overflowY: 'auto',
     backgroundColor: '#FAFAFA',
+    // flex: 1,
+    // minHeight: 0,
+    // overflowY: 'auto',
+    // overflowX: 'hidden',
   },
   query: {
     flex: 1,
@@ -379,49 +384,50 @@ class QueryHistoryPanel extends React.Component<Props, State> {
         <div className={localStyles.queryHistoryRoot}>
           <Header text="Query history" />
           <div className={localStyles.body}>
-            {Object.keys(queriesByDate).map(date => {
-              return (
-                <div
-                  className={localStyles.dateGroup}
-                  key={`query_history_date_${date}`}
-                >
+            {Object.keys(queriesByDate).map(date => (
+              <LazyLoad
+                key={`query_history_date_${date}`}
+                placeholder={<div>Loading</div>}
+                height={200}
+                scrollContainer={localStyles.body}
+                overflow
+              >
+                <div className={localStyles.dateGroup}>
                   <Paper variant="outlined" square>
                     <div className={localStyles.dateHeading}>
                       {this.displayDate(date)}
                     </div>
                   </Paper>
-                  {queriesByDate[date].map(jobId => {
-                    return (
-                      <div key={`query_details_${jobId}`}>
-                        <div
-                          onClick={() => {
-                            this.setState({
-                              openJob: openJob === jobId ? null : jobId,
-                            });
-                            this.getQueryDetails(jobId);
-                          }}
-                        >
-                          {openJob === jobId ? (
-                            <QueryStatus failed={jobs[jobId].errored} />
-                          ) : (
-                            <QueryBar jobId={jobId} jobs={jobs} />
-                          )}
-                        </div>
-                        <Collapse in={openJob === jobId}>
-                          {jobs[jobId].details ? (
-                            <Paper square className={localStyles.openDetails}>
-                              <QueryDetails job={jobs[jobId]} />
-                            </Paper>
-                          ) : (
-                            <LinearProgress />
-                          )}
-                        </Collapse>
+                  {queriesByDate[date].map(jobId => (
+                    <div key={`query_details_${jobId}`}>
+                      <div
+                        onClick={() => {
+                          this.setState({
+                            openJob: openJob === jobId ? null : jobId,
+                          });
+                          this.getQueryDetails(jobId);
+                        }}
+                      >
+                        {openJob === jobId ? (
+                          <QueryStatus failed={jobs[jobId].errored} />
+                        ) : (
+                          <QueryBar jobId={jobId} jobs={jobs} />
+                        )}
                       </div>
-                    );
-                  })}
+                      <Collapse in={openJob === jobId}>
+                        {jobs[jobId].details ? (
+                          <Paper square className={localStyles.openDetails}>
+                            <QueryDetails job={jobs[jobId]} />
+                          </Paper>
+                        ) : (
+                          <LinearProgress />
+                        )}
+                      </Collapse>
+                    </div>
+                  ))}
                 </div>
-              );
-            })}
+              </LazyLoad>
+            ))}
           </div>
         </div>
       );
