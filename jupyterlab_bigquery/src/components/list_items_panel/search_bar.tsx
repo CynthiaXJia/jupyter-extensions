@@ -17,16 +17,16 @@ const searchStyle = stylesheet({
     borderStyle: 'solid',
     borderRadius: '1px',
     borderWidth: 'thin',
-    borderColor: '#d3d3d3',
+    borderColor: 'var(--jp-border-color2)',
   },
   searchIcon: {
     padding: '2px',
-    color: 'var(--jp-layout-color3)',
+    fill: 'var(--jp-layout-color3)',
   },
   clearIcon: {
     textTransform: 'none',
     alignSelf: 'center',
-    color: 'var(--jp-layout-color3)',
+    fill: 'var(--jp-layout-color3)',
     '&:hover': {
       cursor: 'pointer',
       opacity: 1,
@@ -37,6 +37,8 @@ const searchStyle = stylesheet({
     fontSize: 'var(--jp-ui-font-size1)',
     minWidth: 0,
     textOverflow: 'ellipsis',
+    backgroundColor: 'transparent',
+    color: 'var(--jp-ui-font-color1)',
   },
 });
 

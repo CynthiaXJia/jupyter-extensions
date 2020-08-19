@@ -169,13 +169,13 @@ const localStyles = stylesheet({
     zIndex: 1,
     gridColumnStart: 1,
     gridRowStart: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'var(--jp-layout-color1)',
     margin: 0,
     padding: 0,
     ...csstips.flex,
   },
   panel: {
-    backgroundColor: 'white',
+    backgroundColor: 'var(--jp-layout-color1)',
     height: '100%',
     ...BASE_FONT,
     ...csstips.vertical,
@@ -192,7 +192,10 @@ const localStyles = stylesheet({
     margin: 0,
     padding: '10px 14px',
     '&:hover': {
-      backgroundColor: '#e8e8e8',
+      backgroundColor:
+        document.body.getAttribute('data-jp-theme-light') === 'true'
+          ? '#e8e8e8'
+          : 'var(--jp-layout-color2)',
       opacity: 1,
       cursor: 'pointer',
     },
@@ -379,10 +382,10 @@ class ListItemsPanel extends React.Component<Props, State> {
           <div className={localStyles.buttonContainer}>
             <Tooltip title="Open SQL editor">
               <Button
-                style={{ color: COLORS.blue }}
                 size="small"
                 variant="outlined"
                 className={localStyles.editQueryButton}
+                style={{ color: COLORS.blue }}
                 onClick={() => {
                   const queryId = generateQueryId();
                   WidgetManager.getInstance().launchWidget(

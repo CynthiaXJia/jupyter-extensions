@@ -2,7 +2,7 @@ import { Dialog } from '@material-ui/core';
 import * as csstips from 'csstips';
 import * as React from 'react';
 import { stylesheet } from 'typestyle';
-import { BASE_FONT, COLORS } from '../styles';
+import { BASE_FONT } from '../styles';
 import { ActionBar } from './action_bar';
 import { SubmitButton } from './submit_button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,8 +32,8 @@ const dialogStyle = stylesheet({
     ...csstips.center,
   },
   main: {
-    backgroundColor: COLORS.white,
-    color: COLORS.base,
+    backgroundColor: 'var(--jp-layout-color0)',
+    color: 'var(--jp-ui-font-color1)',
     padding: '16px',
     width: '480px',
     ...BASE_FONT,

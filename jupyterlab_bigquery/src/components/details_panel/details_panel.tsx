@@ -8,6 +8,7 @@ import { SchemaField } from './service/list_table_details';
 import { ModelSchema } from './service/list_model_details';
 import { StripedRows } from '../shared/striped_rows';
 import { SchemaTable, ModelSchemaTable } from '../shared/schema_table';
+import { gColor } from '../shared/styles';
 
 export const localStyles = stylesheet({
   title: {
@@ -15,7 +16,7 @@ export const localStyles = stylesheet({
     marginBottom: '10px',
   },
   panel: {
-    backgroundColor: 'white',
+    backgroundColor: 'var(--jp-layout-color0)',
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -47,8 +48,14 @@ export const localStyles = stylesheet({
 
 const StyledChip = withStyles({
   root: {
-    color: '#1967D2',
-    backgroundColor: 'rgba(25, 103, 210, 0.1)',
+    color:
+      document.body.getAttribute('data-jp-theme-light') === 'true'
+        ? gColor('BLUE')
+        : 'var(--jp-ui-font-color1)',
+    backgroundColor:
+      document.body.getAttribute('data-jp-theme-light') === 'true'
+        ? 'rgba(25, 103, 210, 0.1)'
+        : 'rgba(25, 103, 210, 0.24)',
   },
 })(Chip);
 

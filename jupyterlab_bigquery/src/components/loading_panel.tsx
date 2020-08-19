@@ -10,12 +10,15 @@ const localStyles = stylesheet({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  circularProgress: {
+    color: 'red',
+  },
 });
 
 const LoadingPanel = () => {
   return (
     <div className={localStyles.container}>
-      <CircularProgress />
+      <CircularProgress className={localStyles.circularProgress} />
     </div>
   );
 };

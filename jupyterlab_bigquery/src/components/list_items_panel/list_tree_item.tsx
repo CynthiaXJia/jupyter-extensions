@@ -74,7 +74,7 @@ const localStyles = stylesheet({
   resourceIcons: {
     display: 'flex',
     alignContent: 'center',
-    color: 'var(--jp-layout-color3)',
+    // fill: '--jp-inverse-layout-color3',
   },
   datasetName: {
     flexDirection: 'row',
@@ -421,7 +421,7 @@ export class DatasetResource extends Resource<DatasetProps> {
               }))}
             >
               <div className={localStyles.datasetName}>
-                <Icon style={{ display: 'flex', alignContent: 'center' }}>
+                <Icon className={localStyles.resourceIcons}>
                   <div className={'jp-Icon jp-Icon-20 jp-DatasetIcon'} />
                 </Icon>
                 <div className={localStyles.resourceName}>{dataset.name}</div>

@@ -14,6 +14,7 @@ import TablePreviewPanel from './table_preview';
 import { QueryEditorTabWidget } from '../query_editor/query_editor_tab/query_editor_tab_widget';
 import { WidgetManager } from '../../utils/widgetManager/widget_manager';
 import { generateQueryId } from '../../reducers/queryEditorTabSlice';
+import { gColor } from '../shared/styles';
 import { stylesheet } from 'typestyle';
 import { BASE_FONT } from 'gcp_jupyterlab_shared';
 import InfoCard from '../shared/info_card';
@@ -103,7 +104,10 @@ export default class TableDetailsTabs extends React.Component<Props, State> {
                 );
               }}
               startIcon={<Code />}
-              style={{ textTransform: 'none', color: '#1A73E8' }}
+              style={{
+                textTransform: 'none',
+                color: gColor('BLUE'),
+              }}
             >
               Query table
             </Button>

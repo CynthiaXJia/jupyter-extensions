@@ -5,8 +5,8 @@ import {
   Collapse,
   LinearProgress,
   Icon,
-  TablePagination,
   IconButton,
+  withStyles,
 } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { stylesheet } from 'typestyle';
@@ -26,8 +26,8 @@ import { QueryEditorTabWidget } from '../query_editor/query_editor_tab/query_edi
 import { WidgetManager } from '../../utils/widgetManager/widget_manager';
 import { generateQueryId } from '../../reducers/queryEditorTabSlice';
 import { formatTime, formatDate, formatBytes } from '../../utils/formatters';
-import { TablePaginationActions } from '../shared/bq_table';
 import InfoCard from '../shared/info_card';
+import { TablePaginationActions, StyledPagination } from '../shared/bq_table';
 import { BASE_FONT } from 'gcp_jupyterlab_shared';
 
 const localStyles = stylesheet({
@@ -35,6 +35,7 @@ const localStyles = stylesheet({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
+    // backgroundColor: 'var(--jp-layout-color0)',
     ...BASE_FONT,
   },
   body: {
@@ -42,7 +43,7 @@ const localStyles = stylesheet({
     minHeight: 0,
     overflowY: 'auto',
     overflowX: 'hidden',
-    backgroundColor: '#FAFAFA',
+    backgroundColor: 'var(--jp-layout-color2)',
   },
   query: {
     flex: 1,
@@ -56,7 +57,7 @@ const localStyles = stylesheet({
     overflow: 'hidden',
     padding: '0px 10px 0px 10px',
     borderBottom: 'var(--jp-border-width) solid var(--jp-border-color2)',
-    backgroundColor: 'white',
+    backgroundColor: 'var(--jp-layout-color0)',
     alignItems: 'center',
     '&:hover': {
       cursor: 'pointer',
@@ -83,13 +84,11 @@ const localStyles = stylesheet({
   icon: {
     marginRight: '12px',
   },
+  refreshIcon: {
+    color: 'var(--jp-ui-font-color1)',
+  },
   dateGroup: {
     marginBottom: '12px',
-  },
-  dateHeading: {
-    fontSize: '18px',
-    marginLeft: '10px',
-    padding: '10px 0px 10px 0px',
   },
   queryTime: {
     width: '85px',
@@ -102,16 +101,17 @@ const localStyles = stylesheet({
   openQueryButton: {
     display: 'flex',
     alignItems: 'center',
+    color: 'var(--jp-ui-font-color1)',
     border: 'var(--jp-border-width) solid var(--jp-border-color2)',
-    backgroundColor: 'white',
+    backgroundColor: 'var(--jp-layout-color0)',
     '&:hover': {
-      boxShadow: '1px 1px 3px 0px rgba(0,0,0,0.5)',
+      boxShadow: '1px 1px 3px 0px var(--jp-border-color2)',
       cursor: 'pointer',
     },
   },
   openQueryButtonSmall: {
-    border: 'var(--jp-border-width) solid white',
-    backgroundColor: 'white',
+    border: 'var(--jp-border-width) solid var(--jp-layout-color0)',
+    backgroundColor: 'var(--jp-layout-color0)',
     '&:hover': {
       border: 'var(--jp-border-width) solid var(--jp-border-color2)',
       cursor: 'pointer',
@@ -123,7 +123,8 @@ const localStyles = stylesheet({
     marginBottom: '14px',
   },
   pagination: {
-    backgroundColor: 'white',
+    backgroundColor: 'var(--jp-layout-color0)',
+    color: 'var(--jp-ui-font-color1)',
     fontSize: '13px',
     borderTop: 'var(--jp-border-width) solid var(--jp-border-color2)',
   },
@@ -132,6 +133,24 @@ const localStyles = stylesheet({
     fontSize: '13px',
   },
 });
+
+const HeadingPaper = withStyles({
+  root: {
+    fontSize: '18px',
+    padding: '10px 0px 10px 10px',
+    backgroundColor: 'var(--jp-layout-color0)',
+    color: 'var(--jp-ui-font-color1)',
+  },
+})(Paper);
+
+const StyledPaper = withStyles({
+  root: {
+    fontSize: '13px',
+    padding: '10px 0px 10px 10px',
+    backgroundColor: 'var(--jp-layout-color0)',
+    color: 'var(--jp-ui-font-color1)',
+  },
+})(Paper);
 
 interface Props {
   queryHistoryService: QueryHistoryService;
@@ -202,7 +221,6 @@ const QueryDetails = (props: { job: Job }) => {
               display: 'flex',
               alignContent: 'center',
             }}
-            color="primary"
           >
             <div className={'jp-Icon jp-Icon-20 jp-OpenEditorIcon'} />
           </Icon>
@@ -421,14 +439,15 @@ class QueryHistoryPanel extends React.Component<Props, State> {
 
       return (
         <div className={localStyles.queryHistoryRoot}>
-          <div>
-            <Header>
-              Query history
-              <IconButton onClick={this.handleRefreshHistory.bind(this)}>
-                <Refresh fontSize={'small'} />
-              </IconButton>
-            </Header>
-          </div>
+          <Header>
+            Query history
+            <IconButton
+              onClick={this.handleRefreshHistory.bind(this)}
+              size="small"
+            >
+              <Refresh className={localStyles.refreshIcon} />
+            </IconButton>
+          </Header>
           <div className={localStyles.body}>
             {Object.keys(queriesByDate).map(date => {
               return (
@@ -436,11 +455,9 @@ class QueryHistoryPanel extends React.Component<Props, State> {
                   className={localStyles.dateGroup}
                   key={`query_history_date_${date}`}
                 >
-                  <Paper variant="outlined" square>
-                    <div className={localStyles.dateHeading}>
-                      {this.displayDate(date)}
-                    </div>
-                  </Paper>
+                  <HeadingPaper variant="outlined" square>
+                    {this.displayDate(date)}
+                  </HeadingPaper>
                   {queriesByDate[date].map(jobId => {
                     return (
                       <div key={`query_details_${jobId}`}>
@@ -471,9 +488,12 @@ class QueryHistoryPanel extends React.Component<Props, State> {
                         </div>
                         <Collapse in={openJob === jobId}>
                           {jobs[jobId].details ? (
-                            <Paper square className={localStyles.openDetails}>
+                            <StyledPaper
+                              square
+                              className={localStyles.openDetails}
+                            >
                               <QueryDetails job={jobs[jobId]} />
-                            </Paper>
+                            </StyledPaper>
                           ) : (
                             <LinearProgress />
                           )}
@@ -485,10 +505,9 @@ class QueryHistoryPanel extends React.Component<Props, State> {
               );
             })}
           </div>
-          <TablePagination
+          <StyledPagination
             className={localStyles.pagination}
             rowsPerPageOptions={[10, 30, 50, 100, 200]}
-            component="div"
             count={jobIds.length}
             rowsPerPage={rowsPerPage}
             page={page}
@@ -496,14 +515,15 @@ class QueryHistoryPanel extends React.Component<Props, State> {
             onChangeRowsPerPage={this.handleChangeRowsPerPage.bind(this)}
             ActionsComponent={TablePaginationActions}
             labelRowsPerPage="Queries per page:"
+            component="div"
           />
         </div>
       );
     } else {
       return (
-        <>
+        <div className={localStyles.queryHistoryRoot}>
           <Header>Query history</Header> <LoadingPanel />
-        </>
+        </div>
       );
     }
   }
