@@ -72,6 +72,7 @@
     "react-lazyload": "^3.0.0",
     "react-redux": "^7.2.0",
     "react-resize-detector": "^5.0.6",
+    "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "redux": "^4.0.5",
     "typestyle": "^2.1.0"

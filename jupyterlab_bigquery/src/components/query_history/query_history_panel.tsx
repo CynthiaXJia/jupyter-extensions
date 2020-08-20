@@ -4,7 +4,9 @@ import { Paper, Collapse, LinearProgress, Icon } from '@material-ui/core';
 import { CheckCircle, Error } from '@material-ui/icons';
 import { stylesheet } from 'typestyle';
 import { DateTime } from 'luxon';
-import LazyLoad from 'react-lazyload';
+
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 
 import {
   QueryHistoryService,
@@ -23,17 +25,13 @@ import { BASE_FONT } from 'gcp_jupyterlab_shared';
 
 const localStyles = stylesheet({
   queryHistoryRoot: {
-    // height: '100%',
-    // display: 'flex',
-    // flexDirection: 'column',
+    height: '100%',
     ...BASE_FONT,
   },
   body: {
+    height: '100%',
+    overflowY: 'auto',
     backgroundColor: '#FAFAFA',
-    // flex: 1,
-    // minHeight: 0,
-    // overflowY: 'auto',
-    // overflowX: 'hidden',
   },
   query: {
     flex: 1,
@@ -286,6 +284,79 @@ const QueryStatus = props => {
   }
 };
 
+interface QueryItem {
+  type: 'date' | 'jobId';
+  value: string;
+}
+
+interface Data {
+  queriesWithDates: QueryItem[];
+  openJob: string;
+  jobs: JobsObject;
+  onClick: any;
+}
+
+const QueryHistoryCard: React.SFC<{
+  data: Data;
+  index: number;
+}> = props => {
+  const { data, index } = props;
+
+  const { queriesWithDates, openJob, jobs, onClick } = data;
+
+  console.log('queries by date within card: ', queriesWithDates);
+
+  const displayDate = date => {
+    const today = DateTime.local().toLocaleString(DateTime.DATE_SHORT);
+    const yesterday = DateTime.local()
+      .minus({ days: 1 })
+      .toLocaleString(DateTime.DATE_SHORT);
+    if (date === today) {
+      return 'Today';
+    } else if (date === yesterday) {
+      return 'Yesterday';
+    } else {
+      return date;
+    }
+  };
+
+  const type = queriesWithDates[index].type;
+  const value = queriesWithDates[index].value;
+
+  return (
+    <div>
+      {type === 'date' ? (
+        <Paper variant="outlined" square>
+          <div className={localStyles.dateHeading}>{displayDate(value)}</div>
+        </Paper>
+      ) : (
+        <div>
+          <div
+            onClick={() => {
+              onClick(value);
+            }}
+          >
+            {openJob === value ? (
+              <QueryStatus failed={jobs[value].errored} />
+            ) : (
+              <QueryBar jobId={value} jobs={jobs} />
+            )}
+          </div>
+          <Collapse in={openJob === value}>
+            {jobs[value].details ? (
+              <Paper square className={localStyles.openDetails}>
+                <QueryDetails job={jobs[value]} />
+              </Paper>
+            ) : (
+              <LinearProgress />
+            )}
+          </Collapse>
+        </div>
+      )}
+    </div>
+  );
+};
+
 class QueryHistoryPanel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -325,17 +396,22 @@ class QueryHistoryPanel extends React.Component<Props, State> {
   };
 
   processHistory = (jobIds, jobs) => {
-    const queriesByDate = {};
+    const queriesWithDates = [];
+
+    let currDate = null;
     jobIds.map(jobId => {
       const date = DateTime.fromISO(jobs[jobId].created);
       const day = date.toLocaleString(DateTime.DATE_SHORT);
-      if (day in queriesByDate) {
-        queriesByDate[day].push(jobId);
+      if (day !== currDate) {
+        queriesWithDates.push({ type: 'date', value: day });
+        currDate = day;
       } else {
-        queriesByDate[day] = [jobId];
+        queriesWithDates.push({ type: 'jobId', value: jobId });
       }
     });
-    return queriesByDate;
+
+    console.log(queriesWithDates);
+    return queriesWithDates;
   };
 
   private async getHistory() {
@@ -355,20 +431,6 @@ class QueryHistoryPanel extends React.Component<Props, State> {
     }
   }
 
-  displayDate(date) {
-    const today = DateTime.local().toLocaleString(DateTime.DATE_SHORT);
-    const yesterday = DateTime.local()
-      .minus({ days: 1 })
-      .toLocaleString(DateTime.DATE_SHORT);
-    if (date === today) {
-      return 'Today';
-    } else if (date === yesterday) {
-      return 'Yesterday';
-    } else {
-      return date;
-    }
-  }
-
   render() {
     if (this.state.isLoading) {
       return (
@@ -378,57 +440,34 @@ class QueryHistoryPanel extends React.Component<Props, State> {
       );
     } else {
       const { jobs, jobIds, openJob } = this.state;
-      const queriesByDate = this.processHistory(jobIds, jobs);
+      const queriesWithDates = this.processHistory(jobIds, jobs);
 
       return (
         <div className={localStyles.queryHistoryRoot}>
           <Header text="Query history" />
-          <div className={localStyles.body}>
-            {Object.keys(queriesByDate).map(date => (
-              <LazyLoad
-                key={`query_history_date_${date}`}
-                placeholder={<div>Loading</div>}
-                height={200}
-                scrollContainer={localStyles.body}
-                overflow
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                height={height}
+                itemCount={queriesWithDates.length}
+                itemSize={35}
+                width={width}
+                itemData={{
+                  queriesWithDates,
+                  openJob,
+                  jobs,
+                  onClick: jobId => {
+                    this.setState({
+                      openJob: openJob === jobId ? null : jobId,
+                    });
+                    this.getQueryDetails(jobId);
+                  },
+                }}
               >
-                <div className={localStyles.dateGroup}>
-                  <Paper variant="outlined" square>
-                    <div className={localStyles.dateHeading}>
-                      {this.displayDate(date)}
-                    </div>
-                  </Paper>
-                  {queriesByDate[date].map(jobId => (
-                    <div key={`query_details_${jobId}`}>
-                      <div
-                        onClick={() => {
-                          this.setState({
-                            openJob: openJob === jobId ? null : jobId,
-                          });
-                          this.getQueryDetails(jobId);
-                        }}
-                      >
-                        {openJob === jobId ? (
-                          <QueryStatus failed={jobs[jobId].errored} />
-                        ) : (
-                          <QueryBar jobId={jobId} jobs={jobs} />
-                        )}
-                      </div>
-                      <Collapse in={openJob === jobId}>
-                        {jobs[jobId].details ? (
-                          <Paper square className={localStyles.openDetails}>
-                            <QueryDetails job={jobs[jobId]} />
-                          </Paper>
-                        ) : (
-                          <LinearProgress />
-                        )}
-                      </Collapse>
-                    </div>
-                  ))}
-                </div>
-              </LazyLoad>
-            ))}
-          </div>
+                {QueryHistoryCard}
+              </List>
+            )}
+          </AutoSizer>
         </div>
       );
     }
