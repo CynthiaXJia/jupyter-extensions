@@ -62,7 +62,10 @@ const READ_ONLY_SQL_EDITOR_OPTIONS: editor.IEditorConstructionOptions = {
 
 const ReadOnlyEditor = props => {
   return (
-    <Paper variant="outlined">
+    <Paper
+      variant="outlined"
+      style={{ border: '1px solid var(--jp-border-color2)' }}
+    >
       <Editor
         width="100%"
         theme={'vs'}

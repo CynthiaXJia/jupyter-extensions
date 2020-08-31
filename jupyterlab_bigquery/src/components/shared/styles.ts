@@ -3,6 +3,7 @@
 export function gColor(color: 'BLUE' | 'RED' | 'GREEN' | 'YELLOW') {
   const darkTheme =
     document.body.getAttribute('data-jp-theme-light') === 'false';
+  console.log('light:', document.body.getAttribute('data-jp-theme-light'));
   switch (color) {
     case 'BLUE':
       return darkTheme ? '#8AB4F8' : '#1A73E8';

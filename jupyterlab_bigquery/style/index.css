@@ -1,9 +1,3 @@
-[data-jp-theme-light='true'] .jp-BigQueryIcon {
-  filter: invert(0);
-}
-[data-jp-theme-light='false'] .jp-BigQueryIcon {
-  filter: invert(0);
-}
 .jp-BigQueryIcon {
   background-image: url('./images/BigQuery.svg');
 }
@@ -39,4 +33,12 @@
 
 [data-jp-theme-light='false'] .jp-Icon {
   filter: invert(0.6);
+}
+
+[data-jp-theme-light='true'] .jp-Icon .jp-BigQueryIcon {
+  filter: invert(0);
+}
+
+[data-jp-theme-light='false'] .jp-Icon .jp-BigQueryIcon {
+  filter: invert(0);
 }

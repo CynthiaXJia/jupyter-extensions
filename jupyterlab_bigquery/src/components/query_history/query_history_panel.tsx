@@ -28,6 +28,7 @@ import { generateQueryId } from '../../reducers/queryEditorTabSlice';
 import { formatTime, formatDate, formatBytes } from '../../utils/formatters';
 import InfoCard from '../shared/info_card';
 import { TablePaginationActions, StyledPagination } from '../shared/bq_table';
+import { gColor } from '../shared/styles';
 import { BASE_FONT } from 'gcp_jupyterlab_shared';
 
 const localStyles = stylesheet({
@@ -35,7 +36,6 @@ const localStyles = stylesheet({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    // backgroundColor: 'var(--jp-layout-color0)',
     ...BASE_FONT,
   },
   body: {
@@ -63,19 +63,9 @@ const localStyles = stylesheet({
       cursor: 'pointer',
     },
   },
-  queryStatusBarFailed: {
+  queryStatusBar: {
     padding: '10px 12px 10px 12px',
     color: 'white',
-    backgroundColor: '#DA4336',
-    marginTop: '10px',
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  queryStatusBarSucceeded: {
-    padding: '10px 12px 10px 12px',
-    color: 'white',
-    backgroundColor: '#00C752',
     marginTop: '10px',
     '&:hover': {
       cursor: 'pointer',
@@ -256,14 +246,14 @@ const QueryBar = (props: { jobs: JobsObject; jobId: string }) => {
       {jobs[jobId].errored ? (
         <Error
           fontSize="inherit"
-          htmlColor="rgb(230, 0, 0)"
           className={localStyles.icon}
+          style={{ fill: gColor('RED') }}
         />
       ) : (
         <CheckCircle
           fontSize="inherit"
-          htmlColor="rgb(0, 199, 82)"
           className={localStyles.icon}
+          style={{ fill: gColor('GREEN') }}
         />
       )}
       <div className={localStyles.query}>{jobs[jobId].query}</div>
@@ -297,10 +287,22 @@ const QueryBar = (props: { jobs: JobsObject; jobId: string }) => {
 const QueryStatus = props => {
   const failed = props.failed;
   if (failed) {
-    return <div className={localStyles.queryStatusBarFailed}>Query failed</div>;
+    return (
+      <div
+        className={localStyles.queryStatusBar}
+        style={{ backgroundColor: gColor('RED') }}
+      >
+        Query failed
+      </div>
+    );
   } else {
     return (
-      <div className={localStyles.queryStatusBarSucceeded}>Query succeeded</div>
+      <div
+        className={localStyles.queryStatusBar}
+        style={{ backgroundColor: gColor('GREEN') }}
+      >
+        Query succeeded
+      </div>
     );
   }
 };

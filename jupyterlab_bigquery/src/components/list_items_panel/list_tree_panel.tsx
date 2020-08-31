@@ -39,7 +39,8 @@ import {
   SearchResult,
 } from '../list_items_panel/service/search_items';
 import { SearchBar } from './search_bar';
-import { DialogComponent, COLORS, BASE_FONT } from 'gcp_jupyterlab_shared';
+import { gColor } from '../shared/styles';
+import { DialogComponent, BASE_FONT } from 'gcp_jupyterlab_shared';
 import CustomSnackbar from './snackbar';
 
 interface Props {
@@ -385,7 +386,6 @@ class ListItemsPanel extends React.Component<Props, State> {
                 size="small"
                 variant="outlined"
                 className={localStyles.editQueryButton}
-                style={{ color: COLORS.blue }}
                 onClick={() => {
                   const queryId = generateQueryId();
                   WidgetManager.getInstance().launchWidget(
@@ -395,6 +395,10 @@ class ListItemsPanel extends React.Component<Props, State> {
                     undefined,
                     [queryId, undefined]
                   );
+                }}
+                style={{
+                  color: gColor('BLUE'),
+                  border: '1px solid var(--jp-border-color2)',
                 }}
               >
                 <div className={localStyles.buttonLabel}>Open SQL editor</div>

@@ -2,40 +2,60 @@ import * as React from 'react';
 import { withStyles, Tabs, Tab } from '@material-ui/core';
 import { gColor } from './styles';
 
-export const StyledTabs: React.ComponentType<any> = withStyles({
+export const StyledTabs = props => {
+  return (
+    <ColorTabs color={gColor('BLUE')} {...props}>
+      {props.children}
+    </ColorTabs>
+  );
+};
+
+interface ColorTabsProps {
+  color: string;
+  // children: any;
+  value: string | number;
+  onChange: any;
+}
+
+const ColorTabs: React.ComponentType<any> = withStyles({
   root: {
     borderBottom: '1px solid var(--jp-border-color2)',
     minHeight: 'auto',
     padding: 0,
   },
   indicator: {
-    backgroundColor: gColor('BLUE'),
+    backgroundColor: (props: ColorTabsProps) => props.color,
     height: '2.5px',
   },
 })(Tabs);
 
-export const StyledTab: React.ComponentType<StyledTabProps> = withStyles({
+export const StyledTab: React.SFC<{ label: string }> = props => {
+  return <ColorTab color={gColor('BLUE')} label={props.label} />;
+};
+
+const ColorTab: React.ComponentType<ColorTabProps> = withStyles({
   root: {
     textTransform: 'none',
     minWidth: 'auto',
     minHeight: 'auto',
     fontSize: '13px',
     '&:hover': {
-      color: gColor('BLUE'),
+      color: (props: ColorTabProps) => props.color,
       opacity: 1,
     },
     '&$selected': {
-      color: gColor('BLUE'),
+      color: (props: ColorTabProps) => props.color,
     },
     '&:focus': {
-      color: gColor('BLUE'),
+      color: (props: ColorTabProps) => props.color,
     },
   },
   selected: {},
-})((props: StyledTabProps) => <Tab disableRipple {...props} />);
+})((props: ColorTabProps) => <Tab disableRipple {...props} />);
 
-interface StyledTabProps {
+interface ColorTabProps {
   label: string;
+  color: string;
 }
 
 interface TabPanelProps {
