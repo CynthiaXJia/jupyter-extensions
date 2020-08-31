@@ -69,11 +69,21 @@ const StyledMenuItem = withStyles({
   root: {
     color: 'var(--jp-ui-font-color1)',
     backgroundColor: 'var(--jp-layout-color0)',
+    '&selected': {
+      color: gColor('BLUE'),
+      backgroundColor: 'var(--jp-layout-color0)',
+    },
   },
   selected: {
-    color: '#1A73E8',
-    backgroundColor: 'var(--jp-layout-color2)',
+    color: gColor('BLUE'),
+    backgroundColor: 'var(--jp-layout-color0)',
+    '&:hover': {
+      backgroundColor: 'var(--jp-layout-color1)',
+    },
   },
+  // '&:hover': {
+  //   backgroundColor: 'var(--jp-layout-color2)',
+  // },
 })(MenuItem);
 
 const StyledSelect = withStyles({
@@ -81,6 +91,17 @@ const StyledSelect = withStyles({
     marginLeft: '36px',
     backgroundColor: 'var(--jp-layout-color0)',
     color: 'var(--jp-ui-font-color1)',
+    // '&:hover': {
+    //   backgroundColor: 'var(--jp-layout-color2)',
+    // },
+  },
+  selectMenu: {
+    root: {
+      backgroundColor: 'var(--jp-layout-color0)',
+      // '&:hover': {
+      //   backgroundColor: 'var(--jp-layout-color2)',
+      // },
+    },
   },
 })(Select);
 

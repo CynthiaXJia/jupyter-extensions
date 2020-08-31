@@ -65,7 +65,7 @@ const localStyles = stylesheet({
   },
   queryStatusBar: {
     padding: '10px 12px 10px 12px',
-    color: 'white',
+    color: 'var(--jp-ui-inverse-font-color1)',
     marginTop: '10px',
     '&:hover': {
       cursor: 'pointer',

@@ -161,7 +161,7 @@ const styleSheet = stylesheet({
         : '1px solid var(--jp-border-color3)',
   },
   icon: {
-    fill: 'var(--jp-layout-color3)',
+    color: 'var(--jp-layout-color3)',
   },
 });
 
@@ -248,10 +248,8 @@ class QueryTextEditor extends React.Component<
 
     monaco.init().then(monacoInstance => {
       this.monacoInstance = monacoInstance;
-      console.log(typeof document.body.getAttribute('data-jp-theme-light'));
       const lightTheme =
         document.body.getAttribute('data-jp-theme-light') === 'true';
-      console.log('light theme: ', lightTheme);
       this.monacoInstance.editor.defineTheme('sqlTheme', {
         base: lightTheme ? 'vs' : 'vs-dark',
         inherit: true,

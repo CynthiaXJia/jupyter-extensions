@@ -1,5 +1,6 @@
 .jp-BigQueryIcon {
   background-image: url('./images/BigQuery.svg');
+  filter: initial !important;
 }
 .jp-DatasetIcon {
   background-image: url('./images/dataset_20px.svg');
@@ -33,12 +34,4 @@
 
 [data-jp-theme-light='false'] .jp-Icon {
   filter: invert(0.6);
-}
-
-[data-jp-theme-light='true'] .jp-Icon .jp-BigQueryIcon {
-  filter: invert(0);
-}
-
-[data-jp-theme-light='false'] .jp-Icon .jp-BigQueryIcon {
-  filter: invert(0);
 }
