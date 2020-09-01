@@ -99,6 +99,7 @@ const styleSheet = stylesheet({
     marginBottom: ' 2px',
     marginRight: '20px',
     fontSize: '10px',
+    colorPrimary: 'red',
   },
   statusBarText: {
     textAlign: 'center',
@@ -664,7 +665,7 @@ class QueryTextEditor extends React.Component<
           );
         }}
       >
-        <FullscreenOutlined />
+        <FullscreenOutlined className={styleSheet.icon} />
       </IconButton>
     );
   }
