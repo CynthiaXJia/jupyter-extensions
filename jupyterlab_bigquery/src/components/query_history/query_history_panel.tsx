@@ -220,7 +220,7 @@ const QueryDetails = (props: { job: Job }) => {
 
       {errored && (
         <InfoCard
-          color="#DA4336"
+          color={gColor('RED')}
           message={details.errorResult.message}
           icon={<Error />}
         />

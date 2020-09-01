@@ -132,7 +132,10 @@ export default class TableDetailsTabs extends React.Component<Props, State> {
                 button={
                   <Button
                     size="small"
-                    style={{ textTransform: 'none' }}
+                    style={{
+                      textTransform: 'none',
+                      color: 'var(--jp-ui-font-color1)',
+                    }}
                     onClick={() => {
                       this.setState({ showPartitionCard: false });
                     }}
