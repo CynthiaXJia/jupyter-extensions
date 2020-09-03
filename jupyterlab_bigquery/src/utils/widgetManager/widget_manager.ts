@@ -1,4 +1,8 @@
-import { ReactWidget, MainAreaWidget } from '@jupyterlab/apputils';
+import {
+  ReactWidget,
+  MainAreaWidget,
+  WidgetTracker,
+} from '@jupyterlab/apputils';
 import { JupyterFrontEnd } from '@jupyterlab/application';
 import {
   configureStore,
@@ -22,7 +26,8 @@ export class WidgetManager {
 
   private constructor(
     private app: JupyterFrontEnd,
-    private incellEnabled: boolean
+    private incellEnabled: boolean, // private restorer: ILayoutRestorer
+    private tracker: WidgetTracker
   ) {
     // customize middle wares
 
@@ -40,9 +45,14 @@ export class WidgetManager {
     return this;
   }
 
-  static initInstance(app: JupyterFrontEnd, incellEnabled: boolean) {
+  static initInstance(
+    app: JupyterFrontEnd,
+    incellEnabled: boolean,
+    // restorer: ILayoutRestorer
+    tracker: WidgetTracker
+  ) {
     if (WidgetManager.instance === undefined) {
-      WidgetManager.instance = new WidgetManager(app, incellEnabled);
+      WidgetManager.instance = new WidgetManager(app, incellEnabled, tracker);
     }
   }
 
@@ -93,8 +103,16 @@ export class WidgetManager {
       this.reduxWidgets[id] = widget;
     }
 
+    if (!this.tracker.has(widget)) {
+      this.tracker.add(widget)
+      this.tracker.forEach(wid => {
+        console.log('widgetmanager redux: ', wid.id);
+      });
+    }
+
     if (!widget.isAttached) {
       this.app.shell.add(widget, windowType, windowArgs);
+      // this.restorer.add(widget, 'bigquery');
     }
     this.app.shell.activateById(widget.id);
   }
@@ -127,9 +145,16 @@ export class WidgetManager {
       this.widgets[id] = widget;
       widget.id = id;
     }
+    if (!this.tracker.has(widget)) {
+      this.tracker.add(widget);
+      this.tracker.forEach(wid => {
+        console.log('widgetmanager: ', wid.id);
+      });
+    }
     if (!widget.isAttached) {
       this.app.shell.add(widget, 'main');
     }
+    // widget.content.update()
     this.app.shell.activateById(widget.id);
   }
 }
