@@ -3,24 +3,25 @@ import { shallow } from 'enzyme';
 import { Settings } from 'luxon';
 
 import { DetailsPanel } from './details_panel';
-import { prepDatasetDetailsRows } from './dataset_details_panel';
-import { prepTableDetailsRows } from './table_details_panel';
-import { prepViewDetailsRows } from './view_details_panel';
 import {
-  prepModelDetailsRows,
-  prepTrainingRunDetailsRows,
-} from './model_details_panel';
-import {
-  MockDatasetDetailsFull,
-  MockDatasetDetailsEmpty,
-  MockTableDetailsFull,
-  MockTableDetailsEmpty,
-  MockViewDetailsFull,
-  MockModelDetailsSingleRun,
-  MockTrainingRunDetails,
+  FakeDatasetDetailsFull,
+  FakeDatasetDetailsEmpty,
+  FakeTableDetailsFull,
+  FakeTableDetailsEmpty,
+  FakeViewDetailsFull,
+  FakeModelDetailsSingleRun,
 } from './test_helpers';
 
 describe('DetailsPanel', () => {
+  const fakeRows = [
+    { name: 'name', value: 'value' },
+    { name: 'another name', value: 'another value' },
+  ];
+
+  const fakeTrainingRows = [
+    { name: 'training option', value: 'training value' },
+  ];
+
   beforeEach(() => {
     Settings.defaultZoneName = 'America/Los_Angeles';
   });
@@ -30,12 +31,10 @@ describe('DetailsPanel', () => {
   });
 
   it('Renders for datasets with description and labels', () => {
-    const mockDatasetDetails = MockDatasetDetailsFull;
-    const mockRows = prepDatasetDetailsRows(mockDatasetDetails);
     const component = shallow(
       <DetailsPanel
-        details={mockDatasetDetails}
-        rows={mockRows}
+        details={FakeDatasetDetailsFull}
+        rows={fakeRows}
         detailsType="DATASET"
       />
     );
@@ -43,12 +42,10 @@ describe('DetailsPanel', () => {
   });
 
   it('Renders for datasets without description and labels', () => {
-    const mockDatasetDetails = MockDatasetDetailsEmpty;
-    const mockRows = prepDatasetDetailsRows(mockDatasetDetails);
     const component = shallow(
       <DetailsPanel
-        details={mockDatasetDetails}
-        rows={mockRows}
+        details={FakeDatasetDetailsEmpty}
+        rows={fakeRows}
         detailsType="DATASET"
       />
     );
@@ -56,12 +53,10 @@ describe('DetailsPanel', () => {
   });
 
   it('Renders for tables with all values populated', () => {
-    const mockTableDetails = MockTableDetailsFull;
-    const mockRows = prepTableDetailsRows(mockTableDetails);
     const component = shallow(
       <DetailsPanel
-        details={mockTableDetails}
-        rows={mockRows}
+        details={FakeTableDetailsFull}
+        rows={fakeRows}
         detailsType="TABLE"
       />
     );
@@ -69,12 +64,10 @@ describe('DetailsPanel', () => {
   });
 
   it('Renders for tables with some empty details', () => {
-    const mockTableDetails = MockTableDetailsEmpty;
-    const mockRows = prepTableDetailsRows(mockTableDetails);
     const component = shallow(
       <DetailsPanel
-        details={mockTableDetails}
-        rows={mockRows}
+        details={FakeTableDetailsEmpty}
+        rows={fakeRows}
         detailsType="TABLE"
       />
     );
@@ -82,12 +75,10 @@ describe('DetailsPanel', () => {
   });
 
   it('Renders for views', () => {
-    const mockViewDetails = MockViewDetailsFull;
-    const mockRows = prepViewDetailsRows(mockViewDetails);
     const component = shallow(
       <DetailsPanel
-        details={mockViewDetails}
-        rows={mockRows}
+        details={FakeViewDetailsFull}
+        rows={fakeRows}
         detailsType="VIEW"
       />
     );
@@ -95,12 +86,10 @@ describe('DetailsPanel', () => {
   });
 
   it('Renders a read-only editor for views', () => {
-    const mockViewDetails = MockViewDetailsFull;
-    const mockRows = prepViewDetailsRows(mockViewDetails);
     const component = shallow(
       <DetailsPanel
-        details={mockViewDetails}
-        rows={mockRows}
+        details={FakeViewDetailsFull}
+        rows={fakeRows}
         detailsType="VIEW"
       />
     );
@@ -108,14 +97,11 @@ describe('DetailsPanel', () => {
   });
 
   it('Renders for models', () => {
-    const mockModelDetails = MockModelDetailsSingleRun;
-    const mockRows = prepModelDetailsRows(mockModelDetails);
-    const mockTrainingRows = prepTrainingRunDetailsRows(MockTrainingRunDetails);
     const component = shallow(
       <DetailsPanel
-        details={mockModelDetails}
-        rows={mockRows}
-        trainingRows={mockTrainingRows}
+        details={FakeModelDetailsSingleRun}
+        rows={fakeRows}
+        trainingRows={fakeTrainingRows}
         detailsType="MODEL"
       />
     );

@@ -1,11 +1,11 @@
-export const MockDatasetDetailsFull = {
+export const FakeDatasetDetailsFull = {
   id: 'projectId.datasetId',
   description: 'description of dataset',
   project: 'projectId',
   labels: ['label: value', 'another label: another value'],
   name: 'datasetId',
   location: 'US',
-  link: 'mocklink.com',
+  link: 'Fakelink.com',
   /* eslint-disable @typescript-eslint/camelcase*/
   date_created: '2020-06-15T19:15:23.255000+00:00',
   last_modified: '2020-07-14T16:52:02.528000+00:00',
@@ -13,14 +13,14 @@ export const MockDatasetDetailsFull = {
   /* eslint-enable @typescript-eslint/camelcase*/
 };
 
-export const MockDatasetDetailsEmpty = {
+export const FakeDatasetDetailsEmpty = {
   id: 'projectId.datasetId',
   description: null,
   project: 'projectId',
   labels: null,
   name: 'datasetId',
   location: 'US',
-  link: 'mocklink.com',
+  link: 'Fakelink.com',
   /* eslint-disable @typescript-eslint/camelcase*/
   date_created: '2020-06-15T19:15:23.255000+00:00',
   last_modified: '2020-07-14T16:52:02.528000+00:00',
@@ -28,7 +28,7 @@ export const MockDatasetDetailsEmpty = {
   /* eslint-enable @typescript-eslint/camelcase*/
 };
 
-export const MockTableDetailsFull = {
+export const FakeTableDetailsFull = {
   id: 'projectId.datasetId.tableId',
   project: 'projectId',
   dataset: 'datsetId',
@@ -37,7 +37,7 @@ export const MockTableDetailsFull = {
   labels: ['label: value', 'another label: another value'],
   expires: '2020-08-15T16:52:02.528000+00:00',
   location: 'US',
-  link: 'mocklink.com',
+  link: 'Fakelink.com',
   /* eslint-disable @typescript-eslint/camelcase*/
   date_created: '2020-06-15T19:15:23.255000+00:00',
   last_modified: '2020-07-14T16:52:02.528000+00:00',
@@ -60,7 +60,7 @@ export const MockTableDetailsFull = {
   ],
 };
 
-export const MockTableDetailsEmpty = {
+export const FakeTableDetailsEmpty = {
   id: 'projectId.datasetId.tableId',
   project: 'projectId',
   dataset: 'datsetId',
@@ -69,7 +69,7 @@ export const MockTableDetailsEmpty = {
   labels: null,
   expires: null,
   location: 'US',
-  link: 'mocklink.com',
+  link: 'Fakelink.com',
   /* eslint-disable @typescript-eslint/camelcase*/
   date_created: '2020-06-15T19:15:23.255000+00:00',
   last_modified: '2020-07-14T16:52:02.528000+00:00',
@@ -79,7 +79,7 @@ export const MockTableDetailsEmpty = {
   schema: [],
 };
 
-export const MockViewDetailsFull = {
+export const FakeViewDetailsFull = {
   id: 'projectId.datasetId.viewId',
   project: 'projectId',
   name: 'viewId',
@@ -87,7 +87,7 @@ export const MockViewDetailsFull = {
   labels: ['label: value', 'another label: another value'],
   expires: '2020-08-15T16:52:02.528000+00:00',
   location: 'US',
-  link: 'mocklink.com',
+  link: 'Fakelink.com',
   query: 'SELECT * FROM `projectId.datasetId.tableId` LIMIT 100',
   /* eslint-disable @typescript-eslint/camelcase*/
   date_created: '2020-06-15T19:15:23.255000+00:00',
@@ -96,7 +96,7 @@ export const MockViewDetailsFull = {
   /* eslint-enable @typescript-eslint/camelcase*/
 };
 
-export const MockModelDetailsSingleRun = {
+export const FakeModelDetailsSingleRun = {
   id: 'projectId.datasetId.modelId',
   name: 'modelId',
   description: 'description of model',
@@ -116,7 +116,7 @@ export const MockModelDetailsSingleRun = {
   /* eslint-enable @typescript-eslint/camelcase*/
 };
 
-export const MockTrainingRunDetails = {
+export const FakeTrainingRunDetails = {
   /* eslint-disable @typescript-eslint/camelcase*/
   actual_iterations: 3,
   data_split_column: 'column_name_1',
