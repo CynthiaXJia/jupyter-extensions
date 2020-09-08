@@ -6,6 +6,8 @@ import { Code } from '@material-ui/icons';
 import {
   ModelDetailsService,
   ModelDetails,
+  ModelDetailsObject,
+  TrainingRunDetailsObject,
 } from './service/list_model_details';
 import LoadingPanel from '../loading_panel';
 import { DetailsPanel } from './details_panel';
@@ -94,6 +96,41 @@ const StyledSelect = withStyles({
   },
 })(Select);
 
+export function prepModelDetailsRows(details: ModelDetailsObject) {
+  return [
+    {
+      name: 'Model ID',
+      value: details.id,
+    },
+    {
+      name: 'Date created',
+      value: formatDate(details.date_created),
+    },
+    {
+      name: 'Model expiration',
+      value: details.expires ? formatDate(details.expires) : 'Never',
+    },
+    {
+      name: 'Date modified',
+      value: formatDate(details.last_modified),
+    },
+    {
+      name: 'Data location',
+      value: details.location ? details.location : 'None',
+    },
+    {
+      name: 'Model type',
+      value: details.model_type,
+    },
+  ];
+}
+
+export function prepTrainingRunDetailsRows(details: TrainingRunDetailsObject) {
+  return Object.entries(details).map(pair => {
+    return { name: displayOptionNames[pair[0]], value: pair[1] };
+  });
+}
+
 export default class ModelDetailsPanel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -128,26 +165,7 @@ export default class ModelDetailsPanel extends React.Component<Props, State> {
       );
 
       const detailsObj = details.details;
-      const rows = [
-        { name: 'Model ID', value: detailsObj.id },
-        { name: 'Date created', value: formatDate(detailsObj.date_created) },
-        {
-          name: 'Model expiration',
-          value: detailsObj.expires ? formatDate(detailsObj.expires) : 'Never',
-        },
-        {
-          name: 'Date modified',
-          value: formatDate(detailsObj.last_modified),
-        },
-        {
-          name: 'Data location',
-          value: detailsObj.location ? detailsObj.location : 'None',
-        },
-        {
-          name: 'Model type',
-          value: detailsObj.model_type,
-        },
-      ];
+      const rows = prepModelDetailsRows(detailsObj);
       this.setState({
         hasLoaded: true,
         details,
@@ -171,9 +189,7 @@ export default class ModelDetailsPanel extends React.Component<Props, State> {
           runIndex
         );
 
-        const trainingRows = Object.entries(details.details).map(pair => {
-          return { name: displayOptionNames[pair[0]], value: pair[1] };
-        });
+        const trainingRows = prepTrainingRunDetailsRows(details.details);
 
         const updatedRuns = { ...this.state.loadedRuns };
         updatedRuns[runIndex] = trainingRows;

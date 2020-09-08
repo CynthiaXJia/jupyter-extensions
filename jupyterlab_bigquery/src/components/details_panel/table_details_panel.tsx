@@ -2,6 +2,7 @@ import * as React from 'react';
 import {
   TableDetailsService,
   TableDetails,
+  TableDetailsObject,
 } from './service/list_table_details';
 import LoadingPanel from '../loading_panel';
 import { DetailsPanel } from './details_panel';
@@ -23,6 +24,33 @@ interface State {
 interface DetailRow {
   name: string;
   value: string | number;
+}
+
+export function prepTableDetailsRows(details: TableDetailsObject) {
+  return [
+    { name: 'Table ID', value: details.id },
+    {
+      name: 'Table size',
+      value: formatBytes(details.num_bytes),
+    },
+    {
+      name: 'Number of rows',
+      value: details.num_rows.toLocaleString(),
+    },
+    { name: 'Created', value: formatDate(details.date_created) },
+    {
+      name: 'Table expiration',
+      value: details.expires ? formatDate(details.expires) : 'Never',
+    },
+    {
+      name: 'Last modified',
+      value: formatDate(details.last_modified),
+    },
+    {
+      name: 'Data location',
+      value: details.location ? details.location : 'None',
+    },
+  ];
 }
 
 export default class TableDetailsPanel extends React.Component<Props, State> {
@@ -64,30 +92,7 @@ export default class TableDetailsPanel extends React.Component<Props, State> {
       );
 
       const detailsObj = details.details;
-      const rows = [
-        { name: 'Table ID', value: detailsObj.id },
-        {
-          name: 'Table size',
-          value: formatBytes(detailsObj.num_bytes),
-        },
-        {
-          name: 'Number of rows',
-          value: detailsObj.num_rows.toLocaleString(),
-        },
-        { name: 'Created', value: formatDate(detailsObj.date_created) },
-        {
-          name: 'Table expiration',
-          value: detailsObj.expires ? formatDate(detailsObj.expires) : 'Never',
-        },
-        {
-          name: 'Last modified',
-          value: formatDate(detailsObj.last_modified),
-        },
-        {
-          name: 'Data location',
-          value: detailsObj.location ? detailsObj.location : 'None',
-        },
-      ];
+      const rows = prepTableDetailsRows(detailsObj);
       if (this.mounted) {
         this.setState({ hasLoaded: true, details, rows });
       }

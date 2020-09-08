@@ -2,7 +2,11 @@ import * as React from 'react';
 import { Button } from '@material-ui/core';
 import { Code } from '@material-ui/icons';
 
-import { ViewDetailsService, ViewDetails } from './service/list_view_details';
+import {
+  ViewDetailsService,
+  ViewDetails,
+  ViewDetailsObject,
+} from './service/list_view_details';
 import { Header } from '../shared/header';
 import LoadingPanel from '../loading_panel';
 import { DetailsPanel } from './details_panel';
@@ -33,6 +37,22 @@ interface DetailRow {
   value: string;
 }
 
+export function prepViewDetailsRows(details: ViewDetailsObject) {
+  return [
+    { name: 'View ID', value: details.id },
+    { name: 'Created', value: formatDate(details.date_created) },
+    { name: 'Last modified', value: formatDate(details.last_modified) },
+    {
+      name: 'View expiration',
+      value: details.expires ? formatDate(details.expires) : 'Never',
+    },
+    {
+      name: 'Use Legacy SQL',
+      value: details.legacy_sql ? 'true' : 'false',
+    },
+  ];
+}
+
 export default class ViewDetailsPanel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -60,19 +80,7 @@ export default class ViewDetailsPanel extends React.Component<Props, State> {
       );
 
       const detailsObj = details.details;
-      const rows = [
-        { name: 'View ID', value: detailsObj.id },
-        { name: 'Created', value: formatDate(detailsObj.date_created) },
-        { name: 'Last modified', value: formatDate(detailsObj.last_modified) },
-        {
-          name: 'View expiration',
-          value: detailsObj.expires ? formatDate(detailsObj.expires) : 'Never',
-        },
-        {
-          name: 'Use Legacy SQL',
-          value: detailsObj.legacy_sql ? 'true' : 'false',
-        },
-      ];
+      const rows = prepViewDetailsRows(detailsObj);
 
       this.setState({ hasLoaded: true, details, rows });
     } catch (err) {

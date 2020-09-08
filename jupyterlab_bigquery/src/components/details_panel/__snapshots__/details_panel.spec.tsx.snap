@@ -1,0 +1,764 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailsPanel Renders for datasets with description and labels 1`] = `
+<div
+  className="panel_f1x07ye"
+>
+  <div
+    className="detailsBody_fmw8kkq"
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      spacing={4}
+    >
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Description
+        </div>
+        <div>
+          description of dataset
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div>
+          <div
+            className="title_fvro9lr"
+          >
+            Labels
+          </div>
+          <div
+            className="labelContainer_f14ovan"
+          >
+            <WithStyles(Component)
+              darkmode={false}
+              key="0"
+              label="label: value"
+              size="small"
+            />
+            <WithStyles(Component)
+              darkmode={false}
+              key="1"
+              label="another label: another value"
+              size="small"
+            />
+          </div>
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Dataset info
+        </div>
+        <Component
+          rows={
+            Array [
+              Object {
+                "name": "Dataset ID",
+                "value": "projectId.datasetId",
+              },
+              Object {
+                "name": "Created",
+                "value": "Jun 15, 2020, 12:15:23 PM",
+              },
+              Object {
+                "name": "Default table expiration",
+                "value": "200 days 0 hr",
+              },
+              Object {
+                "name": "Last modified",
+                "value": "Jul 14, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Data location",
+                "value": "US",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel Renders for datasets without description and labels 1`] = `
+<div
+  className="panel_f1x07ye"
+>
+  <div
+    className="detailsBody_fmw8kkq"
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      spacing={4}
+    >
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Description
+        </div>
+        <div>
+          None
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div>
+          <div
+            className="title_fvro9lr"
+          >
+            Labels
+          </div>
+          None
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Dataset info
+        </div>
+        <Component
+          rows={
+            Array [
+              Object {
+                "name": "Dataset ID",
+                "value": "projectId.datasetId",
+              },
+              Object {
+                "name": "Created",
+                "value": "Jun 15, 2020, 12:15:23 PM",
+              },
+              Object {
+                "name": "Default table expiration",
+                "value": "Never",
+              },
+              Object {
+                "name": "Last modified",
+                "value": "Jul 14, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Data location",
+                "value": "US",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel Renders for models 1`] = `
+<div
+  className="panel_f1x07ye"
+>
+  <div
+    className="detailsBody_fmw8kkq"
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      spacing={4}
+    >
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Description
+        </div>
+        <div>
+          description of model
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div>
+          <div
+            className="title_fvro9lr"
+          >
+            Labels
+          </div>
+          <div
+            className="labelContainer_f14ovan"
+          >
+            <WithStyles(Component)
+              darkmode={false}
+              key="0"
+              label="label: value"
+              size="small"
+            />
+            <WithStyles(Component)
+              darkmode={false}
+              key="1"
+              label="another label: another value"
+              size="small"
+            />
+          </div>
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Model details
+        </div>
+        <Component
+          rows={
+            Array [
+              Object {
+                "name": "Model ID",
+                "value": "projectId.datasetId.modelId",
+              },
+              Object {
+                "name": "Date created",
+                "value": "Jun 15, 2020, 12:15:23 PM",
+              },
+              Object {
+                "name": "Model expiration",
+                "value": "Aug 15, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Date modified",
+                "value": "Jul 14, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Data location",
+                "value": "US",
+              },
+              Object {
+                "name": "Model type",
+                "value": "LINEAR_REGRESSION",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Training options
+        </div>
+        <Component
+          rows={
+            Array [
+              Object {
+                "name": "Actual iterations",
+                "value": 3,
+              },
+              Object {
+                "name": "Data split column",
+                "value": "column_name_1",
+              },
+              Object {
+                "name": "Data split eval fraction",
+                "value": 0.3,
+              },
+              Object {
+                "name": "Data split method",
+                "value": "RANDOM",
+              },
+              Object {
+                "name": "Distance type",
+                "value": "EUCLIDEAN",
+              },
+              Object {
+                "name": "Early stop",
+                "value": "False",
+              },
+              Object {
+                "name": "Initial learn rate",
+                "value": 0.1,
+              },
+              Object {
+                "name": "Input label columns",
+                "value": "['column1', 'column2']",
+              },
+              Object {
+                "name": "Kmeans initialization column",
+                "value": "column_name_2",
+              },
+              Object {
+                "name": "Centroids initialization method",
+                "value": "RANDOM",
+              },
+              Object {
+                "name": "L1 regularization",
+                "value": 0.5,
+              },
+              Object {
+                "name": "L2 regularization",
+                "value": 0.6,
+              },
+              Object {
+                "name": "Label class weights",
+                "value": "[0.2, 0.3]",
+              },
+              Object {
+                "name": "Learn rate",
+                "value": 0.7,
+              },
+              Object {
+                "name": "Learn rate strategy",
+                "value": "LINE_SEARCH",
+              },
+              Object {
+                "name": "Loss type",
+                "value": "MEAN_SQUARED_LOSS",
+              },
+              Object {
+                "name": "Max allowed iterations",
+                "value": 20,
+              },
+              Object {
+                "name": "Min relative progress",
+                "value": 0.4,
+              },
+              Object {
+                "name": "Model uri",
+                "value": "model.uri.string",
+              },
+              Object {
+                "name": "Number of clusters",
+                "value": 7,
+              },
+              Object {
+                "name": "Optimization strategy",
+                "value": "BATCH_GRADIENT_DESCENT",
+              },
+              Object {
+                "name": "Warm start",
+                "value": "True",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Label columns
+        </div>
+        <div>
+          <Component
+            schema={
+              Array [
+                Object {
+                  "name": "predicted_field",
+                  "type": "FLOAT",
+                },
+              ]
+            }
+          />
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Feature columns
+        </div>
+        <div>
+          <Component
+            schema={
+              Array [
+                Object {
+                  "name": "feature_0",
+                  "type": "INTEGER",
+                },
+                Object {
+                  "name": "feature_1",
+                  "type": "FLOAT",
+                },
+              ]
+            }
+          />
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel Renders for tables with all values populated 1`] = `
+<div
+  className="panel_f1x07ye"
+>
+  <div
+    className="detailsBody_fmw8kkq"
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      spacing={4}
+    >
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Description
+        </div>
+        <div>
+          description of table
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div>
+          <div
+            className="title_fvro9lr"
+          >
+            Labels
+          </div>
+          <div
+            className="labelContainer_f14ovan"
+          >
+            <WithStyles(Component)
+              darkmode={false}
+              key="0"
+              label="label: value"
+              size="small"
+            />
+            <WithStyles(Component)
+              darkmode={false}
+              key="1"
+              label="another label: another value"
+              size="small"
+            />
+          </div>
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Table info
+        </div>
+        <Component
+          rows={
+            Array [
+              Object {
+                "name": "Table ID",
+                "value": "projectId.datasetId.tableId",
+              },
+              Object {
+                "name": "Table size",
+                "value": "11.77 MB",
+              },
+              Object {
+                "name": "Number of rows",
+                "value": "123,456",
+              },
+              Object {
+                "name": "Created",
+                "value": "Jun 15, 2020, 12:15:23 PM",
+              },
+              Object {
+                "name": "Table expiration",
+                "value": "Aug 15, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Last modified",
+                "value": "Jul 14, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Data location",
+                "value": "US",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Schema
+        </div>
+        <Component
+          schema={
+            Array [
+              Object {
+                "description": "this field is a record",
+                "mode": "NULLABLE",
+                "name": "record",
+                "type": "RECORD",
+              },
+              Object {
+                "description": "this field is a string and a child",
+                "mode": "NULLABLE",
+                "name": "record.child",
+                "type": "STRING",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel Renders for tables with some empty details 1`] = `
+<div
+  className="panel_f1x07ye"
+>
+  <div
+    className="detailsBody_fmw8kkq"
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      spacing={4}
+    >
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Description
+        </div>
+        <div>
+          None
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div>
+          <div
+            className="title_fvro9lr"
+          >
+            Labels
+          </div>
+          None
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Table info
+        </div>
+        <Component
+          rows={
+            Array [
+              Object {
+                "name": "Table ID",
+                "value": "projectId.datasetId.tableId",
+              },
+              Object {
+                "name": "Table size",
+                "value": "11.77 MB",
+              },
+              Object {
+                "name": "Number of rows",
+                "value": "123,456",
+              },
+              Object {
+                "name": "Created",
+                "value": "Jun 15, 2020, 12:15:23 PM",
+              },
+              Object {
+                "name": "Table expiration",
+                "value": "Never",
+              },
+              Object {
+                "name": "Last modified",
+                "value": "Jul 14, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Data location",
+                "value": "US",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Schema
+        </div>
+        Table does not have a schema.
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+</div>
+`;
+
+exports[`DetailsPanel Renders for views 1`] = `
+<div
+  className="panel_f1x07ye"
+>
+  <div
+    className="detailsBody_fmw8kkq"
+  >
+    <WithStyles(ForwardRef(Grid))
+      container={true}
+      spacing={4}
+    >
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Description
+        </div>
+        <div>
+          description of view
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={6}
+      >
+        <div>
+          <div
+            className="title_fvro9lr"
+          >
+            Labels
+          </div>
+          <div
+            className="labelContainer_f14ovan"
+          >
+            <WithStyles(Component)
+              darkmode={false}
+              key="0"
+              label="label: value"
+              size="small"
+            />
+            <WithStyles(Component)
+              darkmode={false}
+              key="1"
+              label="another label: another value"
+              size="small"
+            />
+          </div>
+        </div>
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          View info
+        </div>
+        <Component
+          rows={
+            Array [
+              Object {
+                "name": "View ID",
+                "value": "projectId.datasetId.viewId",
+              },
+              Object {
+                "name": "Created",
+                "value": "Jun 15, 2020, 12:15:23 PM",
+              },
+              Object {
+                "name": "Last modified",
+                "value": "Jul 14, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "View expiration",
+                "value": "Aug 15, 2020, 9:52:02 AM",
+              },
+              Object {
+                "name": "Use Legacy SQL",
+                "value": "true",
+              },
+            ]
+          }
+        />
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Schema
+        </div>
+        Table does not have a schema.
+      </WithStyles(ForwardRef(Grid))>
+      <WithStyles(ForwardRef(Grid))
+        item={true}
+        xs={12}
+      >
+        <div
+          className="title_fvro9lr"
+        >
+          Query
+        </div>
+        <ReadOnlyEditor
+          query="SELECT * FROM \`projectId.datasetId.tableId\` LIMIT 100"
+        />
+      </WithStyles(ForwardRef(Grid))>
+    </WithStyles(ForwardRef(Grid))>
+  </div>
+</div>
+`;

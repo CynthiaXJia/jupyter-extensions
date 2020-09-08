@@ -25,7 +25,7 @@ export interface ModelDetails {
   details: ModelDetailsObject;
 }
 
-interface TrainingRunDetailsObject {
+export interface TrainingRunDetailsObject {
   actual_iterations?: number; // int
   data_split_column?: any;
   data_split_eval_fraction?: number; // float

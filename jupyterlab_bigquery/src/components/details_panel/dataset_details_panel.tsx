@@ -3,6 +3,7 @@ import * as React from 'react';
 import {
   DatasetDetailsService,
   DatasetDetails,
+  DatasetDetailsObject,
 } from './service/list_dataset_details';
 import { Header } from '../shared/header';
 import LoadingPanel from '../loading_panel';
@@ -46,6 +47,27 @@ interface DetailRow {
   value: string;
 }
 
+export function prepDatasetDetailsRows(details: DatasetDetailsObject) {
+  return [
+    { name: 'Dataset ID', value: details.id },
+    { name: 'Created', value: formatDate(details.date_created) },
+    {
+      name: 'Default table expiration',
+      value: details.default_expiration
+        ? formatMs(details.default_expiration)
+        : 'Never',
+    },
+    {
+      name: 'Last modified',
+      value: formatDate(details.last_modified),
+    },
+    {
+      name: 'Data location',
+      value: details.location ? details.location : 'None',
+    },
+  ];
+}
+
 export default class DatasetDetailsPanel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -73,24 +95,7 @@ export default class DatasetDetailsPanel extends React.Component<Props, State> {
       );
 
       const detailsObj = details.details;
-      const rows = [
-        { name: 'Dataset ID', value: detailsObj.id },
-        { name: 'Created', value: formatDate(detailsObj.date_created) },
-        {
-          name: 'Default table expiration',
-          value: detailsObj.default_expiration
-            ? formatMs(detailsObj.default_expiration)
-            : 'Never',
-        },
-        {
-          name: 'Last modified',
-          value: formatDate(detailsObj.last_modified),
-        },
-        {
-          name: 'Data location',
-          value: detailsObj.location ? detailsObj.location : 'None',
-        },
-      ];
+      const rows = prepDatasetDetailsRows(detailsObj);
 
       this.setState({ hasLoaded: true, details, rows });
     } catch (err) {
