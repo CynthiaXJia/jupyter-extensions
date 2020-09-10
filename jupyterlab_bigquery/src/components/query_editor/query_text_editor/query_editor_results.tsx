@@ -64,7 +64,7 @@ class QueryResults extends Component<QueryResultsProps, QueryResultsState> {
     const url =
       'https://datastudio.google.com/c/u/0/linking/setupAnalysis?config=' +
       JSON.stringify(config);
-    window.open(url);
+    window.open(url, '_blank');
   }
 
   render() {
