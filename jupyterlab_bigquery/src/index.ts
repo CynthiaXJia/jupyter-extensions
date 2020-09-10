@@ -46,25 +46,37 @@ async function activate(
     { rank: 100 }
   );
 
-  const command: string = 'bigquery:open';
+  const command: string = 'bigquery:restore';
   app.commands.addCommand(command, {
     // label: 'Bigquery extension',
-    execute: () => {
+    execute: id => {
+      console.log('in execute command', id);
+      // console.log('widgets: ', manager.getWidgets());
+      // console.log('tracker ', tracker);
       tracker.forEach(widget => {
-        console.log('restoring ', widget.id);
-        if (!widget) {
-          console.log('no widget sad');
-          const content = new ListItemsWidget(listProjectsService, context);
-          widget = new MainAreaWidget({ content });
-        }
-        if (!widget.isAttached) {
-          app.shell.add(widget, 'main');
-        }
+        console.log('heres a widget:', widget.id);
+        // if (!widget) {
+        //   console.log('no widget sad');
+        //   const content = new ListItemsWidget(listProjectsService, context);
+        //   widget = new MainAreaWidget({ content });
+        // }
+        // if (!widget.isAttached) {
+        //   app.shell.add(widget, 'main');
+        // }
       });
     },
   });
 
-  restorer.restore(tracker, { command, name: () => NAMESPACE });
+  restorer.restore(tracker, {
+    command: command,
+    name: w => {
+      console.log('heres w:', w);
+      return w.id;
+    },
+    args: w => ({
+      id: w.id,
+    }),
+  });
 
   if (inCellEnabled) {
     registry.registerWidget({

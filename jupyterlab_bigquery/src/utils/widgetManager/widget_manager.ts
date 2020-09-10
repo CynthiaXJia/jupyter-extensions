@@ -60,6 +60,14 @@ export class WidgetManager {
     return WidgetManager.instance;
   }
 
+  getWidgets(): string[] {
+    const allWidgets = [];
+    this.tracker.forEach(wid => {
+      allWidgets.push(wid);
+    });
+    return allWidgets;
+  }
+
   getIncellEnabled(): boolean {
     return this.incellEnabled;
   }
@@ -104,7 +112,7 @@ export class WidgetManager {
     }
 
     if (!this.tracker.has(widget)) {
-      this.tracker.add(widget)
+      this.tracker.add(widget);
       this.tracker.forEach(wid => {
         console.log('widgetmanager redux: ', wid.id);
       });
